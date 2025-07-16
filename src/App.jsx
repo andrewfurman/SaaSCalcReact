@@ -7,11 +7,11 @@ export default function App() {
   const [licenseRate, setLicenseRate] = useState(100)
   const [opsFTEs, setOpsFTEs] = useState(3)
   const [opsAnnualPerFTE, setOpsAnnualPerFTE] = useState(80000)
-  const [itFTEs, setItFTEs] = useState(2)
+  const [itFTEs, setItFTEs] = useState(10)
   const [itAnnualPerFTE, setItAnnualPerFTE] = useState(120000)
 
   const sfLicenseAnnual = users * licenseRate * 12
-  const sfOpsLabor = opsFTEs * opsAnnualPerFTE
+  const sfOpsLabor = users * opsAnnualPerFTE
   const sfITLabor = itFTEs * itAnnualPerFTE
   const sfTotalAnnual = sfLicenseAnnual + sfOpsLabor + sfITLabor
 
@@ -166,15 +166,7 @@ export default function App() {
                 <label className="block text-sm font-medium text-black mb-2">
                   # Of Ops FTEs
                 </label>
-                <input
-                  type="number"
-                  value={opsFTEs}
-                  onChange={(e) => setOpsFTEs(Number(e.target.value))}
-                  className="w-24 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent text-center"
-                  min="1"
-                  max="50"
-                  placeholder="3"
-                />
+                <div className="text-2xl font-bold text-black">{users}</div>
               </div>
               
               <div className="lg:col-span-1 flex flex-col items-center justify-center">
