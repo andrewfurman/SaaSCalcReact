@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function Tabs({ onTabChange }) {
+export default function HeaderTabs({ onTabChange }) {
   const [activeTab, setActiveTab] = useState('8090')
 
   const handleTabClick = (tab) => {

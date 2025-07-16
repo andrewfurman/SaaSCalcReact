@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import './App.css'
-import Header from './components/Header'
-import Tabs from './components/Tabs'
-import SalesforceCalculator from './components/SalesforceCalculator'
-import EightyNinetyCalculator from './components/EightyNinetyCalculator'
+import HeaderContent from './components/HeaderContent'
+import HeaderTabs from './components/HeaderTabs'
+import CostSalesforce from './components/CostSalesforce'
+import Cost8090 from './components/Cost8090'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('8090')
@@ -22,12 +22,12 @@ export default function App() {
   return (
     <div className="min-h-screen bg-black p-6">
       <div className="max-w-7xl mx-auto">
-        <Header />
+        <HeaderContent />
         
-        <Tabs onTabChange={handleTabChange} />
+        <HeaderTabs onTabChange={handleTabChange} />
         
         {activeTab === 'salesforce' ? (
-          <SalesforceCalculator 
+          <CostSalesforce 
             users={users}
             setUsers={setUsers}
             opsAnnualPerFTE={opsAnnualPerFTE}
@@ -38,7 +38,7 @@ export default function App() {
             setItAnnualPerFTE={setItAnnualPerFTE}
           />
         ) : (
-          <EightyNinetyCalculator 
+          <Cost8090 
             sfOpsLabor={sfOpsLabor}
             sfITLabor={sfITLabor}
             users={users}
