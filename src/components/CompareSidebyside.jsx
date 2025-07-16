@@ -189,51 +189,41 @@ export default function CompareSidebyside({
       </div>
 
       {/* Total Row */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-        <div className="bg-gray-800 rounded-2xl p-6 shadow-xl border border-gray-600">
+      <div className="bg-black rounded-2xl p-6 shadow-xl border border-white">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
           <div className="text-center">
             <h3 className="text-xl font-bold text-white mb-2">Cost With Salesforce</h3>
             <div className="text-sm text-gray-400 mb-4">
               License + Ops Labor + IT Labor
             </div>
-            <div className="flex justify-center">
-              <div className="bg-gray-100 p-4 rounded-lg border border-black w-full max-w-xs">
-                <div className="text-3xl font-bold text-black text-center">{formatCurrency(sfTotalAnnual)}</div>
-                <div className="text-xs text-gray-600 text-center">total annual</div>
-              </div>
+            <div className="bg-gray-100 p-4 rounded-lg border border-gray-300">
+              <div className="text-3xl font-bold text-black text-center">{formatCurrency(sfTotalAnnual)}</div>
+              <div className="text-xs text-gray-600 text-center">total annual</div>
             </div>
           </div>
-        </div>
-        <div className="bg-blue-800 rounded-2xl p-6 shadow-xl border border-blue-600">
           <div className="text-center">
             <h3 className="text-xl font-bold text-white mb-2">Cost With 8090</h3>
-            <div className="text-sm text-blue-200 mb-4">
+            <div className="text-sm text-gray-400 mb-4">
               License + Ops Labor + IT Labor
             </div>
-            <div className="flex justify-center">
-              <div className="bg-gray-100 p-4 rounded-lg border border-black w-full max-w-xs">
-                <div className="text-3xl font-bold text-black text-center">{formatCurrency(eightyNinetyTotalAnnual)}</div>
-                <div className="text-xs text-gray-600 text-center">total annual</div>
-              </div>
+            <div className="bg-gray-100 p-4 rounded-lg border border-gray-300">
+              <div className="text-3xl font-bold text-black text-center">{formatCurrency(eightyNinetyTotalAnnual)}</div>
+              <div className="text-xs text-gray-600 text-center">total annual</div>
             </div>
           </div>
-        </div>
-        <div className={`rounded-2xl p-6 shadow-xl border ${totalSavings >= 0 ? 'bg-green-800 border-green-600' : 'bg-red-800 border-red-600'}`}>
           <div className="text-center">
             <h3 className="text-xl font-bold text-white mb-2">
               {totalSavings >= 0 ? 'Annual Savings With 8090' : 'Annual Cost Increase With 8090'}
             </h3>
-            <div className={`text-sm mb-4 ${totalSavings >= 0 ? 'text-green-200' : 'text-red-200'}`}>
+            <div className="text-sm text-gray-400 mb-4">
               Salesforce Total - 8090 Total
             </div>
-            <div className="flex justify-center">
-              <div className={`p-4 rounded-lg border w-full max-w-xs ${totalSavings >= 0 ? 'bg-green-100 border-green-300' : 'bg-red-100 border-red-300'}`}>
-                <div className={`text-2xl font-bold text-center ${totalSavings >= 0 ? 'text-green-800' : 'text-red-800'}`}>
-                  {totalSavings >= 0 ? '⬇️' : '⬆️'} {formatCurrency(Math.abs(totalSavings))}
-                </div>
-                <div className={`text-xs text-center ${totalSavings >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                  {totalSavings >= 0 ? 'saved annually' : 'additional cost annually'}
-                </div>
+            <div className={`p-4 rounded-lg border border-gray-300 ${totalSavings >= 0 ? 'bg-green-100' : 'bg-red-100'}`}>
+              <div className={`text-3xl font-bold text-center ${totalSavings >= 0 ? 'text-green-800' : 'text-red-800'}`}>
+                {totalSavings >= 0 ? '⬇️' : '⬆️'} {formatCurrency(Math.abs(totalSavings))}
+              </div>
+              <div className={`text-xs text-center ${totalSavings >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                {totalSavings >= 0 ? 'saved annually' : 'additional cost annually'}
               </div>
             </div>
           </div>
