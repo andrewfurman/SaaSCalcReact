@@ -5,14 +5,12 @@ export default function App() {
   const [sfLicenseCost, setSfLicenseCost] = useState(100)
   const [laborCost, setLaborCost] = useState(100000)
   const [numUsers, setNumUsers] = useState(100)
-  const [itLaborHours, setItLaborHours] = useState(40)
-  const [itHourlyRate, setItHourlyRate] = useState(75)
+  const [itAnnualCost, setItAnnualCost] = useState(150000)
+  const [itFtes, setItFtes] = useState(3)
 
   // 8090 Software comparison inputs
   const [opsLaborReduction, setOpsLaborReduction] = useState(30) // percentage
   const [itLaborReduction, setItLaborReduction] = useState(25) // percentage
-  const [itAnnualCost, setItAnnualCost] = useState(150000)
-  const [totalItFtes, setTotalItFtes] = useState(3)
 
   const [calculations, setCalculations] = useState({
     monthlyLicenseCost: 0,
@@ -32,9 +30,8 @@ export default function App() {
     const annualLicenseCost = monthlyLicenseCost * 12
     const annualLaborCost = laborCost
     const laborCostPerUser = annualLaborCost / numUsers
-    const itConfigCost = itLaborHours * itHourlyRate
-    const totalMonthlyCost = monthlyLicenseCost + (annualLaborCost / 12) + (itConfigCost / 12)
-    const totalAnnualCost = annualLicenseCost + annualLaborCost + itConfigCost
+    const totalMonthlyCost = monthlyLicenseCost + (annualLaborCost / 12) + (itAnnualCost / 12)
+    const totalAnnualCost = annualLicenseCost + annualLaborCost + itAnnualCost
     const costPerUserPerMonth = totalMonthlyCost / numUsers
     const costPerUserPerYear = totalAnnualCost / numUsers
 
@@ -57,7 +54,7 @@ export default function App() {
       annualLicenseCost,
       annualLaborCost,
       laborCostPerUser,
-      itConfigCost,
+      itAnnualCost,
       totalMonthlyCost,
       totalAnnualCost,
       costPerUserPerMonth,
@@ -74,7 +71,7 @@ export default function App() {
       monthlySavings,
       savingsPerUser
     })
-  }, [sfLicenseCost, laborCost, numUsers, itLaborHours, itHourlyRate, opsLaborReduction, itLaborReduction, itAnnualCost, totalItFtes])
+  }, [sfLicenseCost, laborCost, numUsers, itAnnualCost, itFtes, opsLaborReduction, itLaborReduction])
 
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('en-US', {
@@ -143,27 +140,27 @@ export default function App() {
           <div className="input-category">
             <h3>IT Labor</h3>
             <div className="slider-group">
-              <label>IT Config Hours: <span className="value">{itLaborHours}</span></label>
+              <label>Annual IT Labor Cost: <span className="value">{formatCurrency(itAnnualCost)}</span></label>
               <input
                 type="range"
-                min="10"
-                max="200"
-                step="5"
-                value={itLaborHours}
-                onChange={(e) => setItLaborHours(Number(e.target.value))}
+                min="100000"
+                max="500000"
+                step="10000"
+                value={itAnnualCost}
+                onChange={(e) => setItAnnualCost(Number(e.target.value))}
                 className="slider"
               />
             </div>
 
             <div className="slider-group">
-              <label>IT Hourly Rate: <span className="value">{formatCurrency(itHourlyRate)}/hr</span></label>
+              <label>Number of IT FTEs: <span className="value">{itFtes}</span></label>
               <input
                 type="range"
-                min="50"
-                max="200"
-                step="5"
-                value={itHourlyRate}
-                onChange={(e) => setItHourlyRate(Number(e.target.value))}
+                min="1"
+                max="20"
+                step="1"
+                value={itFtes}
+                onChange={(e) => setItFtes(Number(e.target.value))}
                 className="slider"
               />
             </div>
@@ -198,31 +195,7 @@ export default function App() {
               />
             </div>
 
-            <div className="slider-group">
-              <label>IT Annual Cost: <span className="value">{formatCurrency(itAnnualCost)}</span></label>
-              <input
-                type="range"
-                min="100000"
-                max="500000"
-                step="10000"
-                value={itAnnualCost}
-                onChange={(e) => setItAnnualCost(Number(e.target.value))}
-                className="slider"
-              />
-            </div>
-
-            <div className="slider-group">
-              <label>Total IT FTEs: <span className="value">{totalItFtes}</span></label>
-              <input
-                type="range"
-                min="1"
-                max="20"
-                step="1"
-                value={totalItFtes}
-                onChange={(e) => setTotalItFtes(Number(e.target.value))}
-                className="slider"
-              />
-            </div>
+            
           </div>
         </div>
 
@@ -293,8 +266,8 @@ export default function App() {
               <div className="breakdown-category">
                 <h5>IT Labor</h5>
                 <div className="breakdown-item">
-                  <span className="breakdown-label">IT Config Cost</span>
-                  <span className="breakdown-value">{formatCurrency(calculations.itConfigCost)}</span>
+                  <span className="breakdown-label">Annual IT Cost</span>
+                  <span className="breakdown-value">{formatCurrency(calculations.itAnnualCost)}</span>
                 </div>
               </div>
             </div>
