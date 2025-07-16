@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function CompareSidebyside({ 
+export default function CostSidebyside({ 
   users, 
   opsAnnualPerFTE, 
   itFTEs, 

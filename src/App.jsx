@@ -4,10 +4,10 @@ import HeaderContent from './components/HeaderContent'
 import HeaderTabs from './components/HeaderTabs'
 import CostSalesforce from './components/CostSalesforce'
 import Cost8090 from './components/Cost8090'
-import CompareSidebyside from './components/CompareSidebyside'
+import CostSidebyside from './components/CostSidebyside'
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('compare')
+  const [activeTab, setActiveTab] = useState('salesforce')
   const [users, setUsers] = useState(200)
   const [opsAnnualPerFTE, setOpsAnnualPerFTE] = useState(80000)
   const [itFTEs, setItFTEs] = useState(20)
@@ -45,7 +45,7 @@ export default function App() {
             users={users}
           />
         ) : (
-          <CompareSidebyside 
+          <CostSidebyside 
             users={users}
             opsAnnualPerFTE={opsAnnualPerFTE}
             itFTEs={itFTEs}
