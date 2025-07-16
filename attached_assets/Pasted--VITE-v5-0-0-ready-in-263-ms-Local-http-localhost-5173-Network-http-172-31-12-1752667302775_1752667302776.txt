@@ -1,0 +1,23 @@
+
+  VITE v5.0.0  ready in 263 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://172.31.128.27:5173/
+  ➜  press h + enter to show help
+12:01:25 PM [vite] Pre-transform error: [postcss] It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
+12:01:26 PM [vite] Internal server error: [postcss] It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
+  Plugin: vite:css
+  File: /home/runner/workspace/src/App.css:undefined:NaN
+      at We (/home/runner/workspace/node_modules/tailwindcss/dist/lib.js:35:2121)
+      at LazyResult.runOnRoot (/home/runner/workspace/node_modules/postcss/lib/lazy-result.js:361:16)
+      at LazyResult.runAsync (/home/runner/workspace/node_modules/postcss/lib/lazy-result.js:290:26)
+      at LazyResult.async (/home/runner/workspace/node_modules/postcss/lib/lazy-result.js:192:30)
+      at LazyResult.then (/home/runner/workspace/node_modules/postcss/lib/lazy-result.js:436:17) (x2)
+12:01:26 PM [vite] Internal server error: [postcss] It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
+  Plugin: vite:css
+  File: /home/runner/workspace/src/App.css:undefined:NaN
+      at We (/home/runner/workspace/node_modules/tailwindcss/dist/lib.js:35:2121)
+      at LazyResult.runOnRoot (/home/runner/workspace/node_modules/postcss/lib/lazy-result.js:361:16)
+      at LazyResult.runAsync (/home/runner/workspace/node_modules/postcss/lib/lazy-result.js:290:26)
+      at LazyResult.async (/home/runner/workspace/node_modules/postcss/lib/lazy-result.js:192:30)
+      at LazyResult.then (/home/runner/workspace/node_modules/postcss/lib/lazy-result.js:436:17) (x3)
