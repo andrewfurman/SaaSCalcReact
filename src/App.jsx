@@ -8,9 +8,9 @@ import CompareSidebyside from './components/CompareSidebyside'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('compare')
-  const [users, setUsers] = useState(100)
+  const [users, setUsers] = useState(200)
   const [opsAnnualPerFTE, setOpsAnnualPerFTE] = useState(80000)
-  const [itFTEs, setItFTEs] = useState(10)
+  const [itFTEs, setItFTEs] = useState(20)
   const [itAnnualPerFTE, setItAnnualPerFTE] = useState(120000)
 
   const sfOpsLabor = users * opsAnnualPerFTE

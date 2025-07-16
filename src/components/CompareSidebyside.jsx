@@ -22,7 +22,10 @@ export default function CompareSidebyside({
   const eightyNinetyITLabor = sfITLabor * ((100 - itReductionRate) / 100)
   const eightyNinetyTotalAnnual = licenseAnnual + eightyNinetyOpsLabor + eightyNinetyITLabor
 
-  // Savings calculation
+  // Savings calculations
+  const licenseSavings = sfLicenseAnnual - licenseAnnual
+  const opsLaborSavings = sfOpsLabor - eightyNinetyOpsLabor
+  const itLaborSavings = sfITLabor - eightyNinetyITLabor
   const totalSavings = sfTotalAnnual - eightyNinetyTotalAnnual
 
   const formatCurrency = (amount) => {
@@ -97,12 +100,16 @@ export default function CompareSidebyside({
             </div>
           </div>
           <div className="text-center">
-            <h3 className="text-xl font-bold text-black mb-4">License Savings</h3>
+            <h3 className="text-xl font-bold text-black mb-4">
+              {licenseSavings >= 0 ? 'License Savings' : 'License Cost Increase'}
+            </h3>
             <div className="text-lg text-gray-600 mb-2">
               Salesforce - 8090 License
             </div>
             <div className="bg-gray-100 p-4 rounded-lg border border-gray-300">
-              <div className="text-3xl font-bold text-green-600 text-center">⬇️ {formatCurrency(Math.abs(sfLicenseAnnual - licenseAnnual))}</div>
+              <div className={`text-3xl font-bold text-center ${licenseSavings >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                {licenseSavings >= 0 ? '⬇️' : '⬆️'} {formatCurrency(Math.abs(licenseSavings))}
+              </div>
               <div className="text-xs text-gray-600 text-center">annual</div>
             </div>
           </div>
@@ -185,37 +192,49 @@ export default function CompareSidebyside({
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
         <div className="bg-gray-800 rounded-2xl p-6 shadow-xl border border-gray-600">
           <div className="text-center">
-            <h3 className="text-xl font-bold text-white mb-2">Total Annual Cost</h3>
+            <h3 className="text-xl font-bold text-white mb-2">Cost With Salesforce</h3>
             <div className="text-sm text-gray-400 mb-4">
               License + Ops Labor + IT Labor
             </div>
-            <div className="bg-gray-100 p-4 rounded-lg border border-gray-300">
-              <div className="text-3xl font-bold text-black text-center">{formatCurrency(sfTotalAnnual)}</div>
-              <div className="text-xs text-gray-600 text-center">total annual</div>
+            <div className="flex justify-center">
+              <div className="bg-gray-100 p-4 rounded-lg border border-black w-full max-w-xs">
+                <div className="text-3xl font-bold text-black text-center">{formatCurrency(sfTotalAnnual)}</div>
+                <div className="text-xs text-gray-600 text-center">total annual</div>
+              </div>
             </div>
           </div>
         </div>
         <div className="bg-blue-800 rounded-2xl p-6 shadow-xl border border-blue-600">
           <div className="text-center">
-            <h3 className="text-xl font-bold text-white mb-2">Total Annual Cost</h3>
+            <h3 className="text-xl font-bold text-white mb-2">Cost With 8090</h3>
             <div className="text-sm text-blue-200 mb-4">
               License + Ops Labor + IT Labor
             </div>
-            <div className="bg-gray-100 p-4 rounded-lg border border-gray-300">
-              <div className="text-3xl font-bold text-black text-center">{formatCurrency(eightyNinetyTotalAnnual)}</div>
-              <div className="text-xs text-gray-600 text-center">total annual</div>
+            <div className="flex justify-center">
+              <div className="bg-gray-100 p-4 rounded-lg border border-black w-full max-w-xs">
+                <div className="text-3xl font-bold text-black text-center">{formatCurrency(eightyNinetyTotalAnnual)}</div>
+                <div className="text-xs text-gray-600 text-center">total annual</div>
+              </div>
             </div>
           </div>
         </div>
-        <div className="bg-green-800 rounded-2xl p-6 shadow-xl border border-green-600">
+        <div className={`rounded-2xl p-6 shadow-xl border ${totalSavings >= 0 ? 'bg-green-800 border-green-600' : 'bg-red-800 border-red-600'}`}>
           <div className="text-center">
-            <h3 className="text-xl font-bold text-white mb-2">Total Annual Savings</h3>
-            <div className="text-sm text-green-200 mb-4">
+            <h3 className="text-xl font-bold text-white mb-2">
+              {totalSavings >= 0 ? 'Annual Savings With 8090' : 'Annual Cost Increase With 8090'}
+            </h3>
+            <div className={`text-sm mb-4 ${totalSavings >= 0 ? 'text-green-200' : 'text-red-200'}`}>
               Salesforce Total - 8090 Total
             </div>
-            <div className="bg-green-100 p-4 rounded-lg border border-green-300">
-              <div className="text-2xl font-bold text-green-800 text-center">⬇️ {formatCurrency(totalSavings)}</div>
-              <div className="text-xs text-green-600 text-center">saved annually</div>
+            <div className="flex justify-center">
+              <div className={`p-4 rounded-lg border w-full max-w-xs ${totalSavings >= 0 ? 'bg-green-100 border-green-300' : 'bg-red-100 border-red-300'}`}>
+                <div className={`text-2xl font-bold text-center ${totalSavings >= 0 ? 'text-green-800' : 'text-red-800'}`}>
+                  {totalSavings >= 0 ? '⬇️' : '⬆️'} {formatCurrency(Math.abs(totalSavings))}
+                </div>
+                <div className={`text-xs text-center ${totalSavings >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                  {totalSavings >= 0 ? 'saved annually' : 'additional cost annually'}
+                </div>
+              </div>
             </div>
           </div>
         </div>
