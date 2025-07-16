@@ -28,17 +28,18 @@ export default function App() {
     // Salesforce calculations
     const monthlyLicenseCost = sfLicenseCost * numUsers  // $100 per user per month
     const annualLicenseCost = monthlyLicenseCost * 12
-    const annualLaborCost = laborCost * numUsers  // Annual labor cost per user * number of users
+    const annualLaborCost = laborCost  // This is the annual labor cost per user
     const totalItCost = itAnnualCost * itFtes     // Annual IT cost per FTE * number of IT FTEs
     const laborCostPerUser = laborCost
-    const totalMonthlyCost = monthlyLicenseCost + (annualLaborCost / 12) + (totalItCost / 12)
-    const totalAnnualCost = annualLicenseCost + annualLaborCost + totalItCost
+    const totalMonthlyCost = monthlyLicenseCost + ((annualLaborCost * numUsers) / 12) + (totalItCost / 12)
+    const totalAnnualCost = annualLicenseCost + (annualLaborCost * numUsers) + totalItCost
     const costPerUserPerMonth = totalMonthlyCost / numUsers
     const costPerUserPerYear = totalAnnualCost / numUsers
 
     // 8090 Software calculations
     const softwareCost8090 = 500000
-    const reducedOpsLabor = annualLaborCost * (1 - opsLaborReduction / 100)
+    const totalOpsLabor = annualLaborCost * numUsers
+    const reducedOpsLabor = totalOpsLabor * (1 - opsLaborReduction / 100)
     const reducedItLabor = totalItCost * (1 - itLaborReduction / 100)
     const total8090Cost = softwareCost8090 + reducedOpsLabor + reducedItLabor
     const cost8090PerUser = total8090Cost / numUsers
@@ -62,6 +63,7 @@ export default function App() {
       costPerUserPerYear,
       // 8090 calculations
       softwareCost8090,
+      totalOpsLabor,
       reducedOpsLabor,
       reducedItLabor,
       total8090Cost,
@@ -260,7 +262,7 @@ export default function App() {
                 <h5>Operations Labor</h5>
                 <div className="breakdown-item">
                   <span className="breakdown-label">Total Labor Cost ({numUsers} users)</span>
-                  <span className="breakdown-value">{formatCurrency(calculations.annualLaborCost)}</span>
+                  <span className="breakdown-value">{formatCurrency(calculations.annualLaborCost * numUsers)}</span>
                 </div>
               </div>
 
