@@ -5,7 +5,7 @@ export default function HeaderContent() {
         Salesforce vs 8090 Cost Comparison
       </h1>
       <p className="text-gray-400">
-        Calculate your annual total cost of ownership
+        Compare your Salesforce Costs with 8090 Costs 
       </p>
     </div>
   )

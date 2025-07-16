@@ -7,7 +7,7 @@ import Cost8090 from './components/Cost8090'
 import CompareSidebyside from './components/CompareSidebyside'
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('8090')
+  const [activeTab, setActiveTab] = useState('compare')
   const [users, setUsers] = useState(100)
   const [opsAnnualPerFTE, setOpsAnnualPerFTE] = useState(80000)
   const [itFTEs, setItFTEs] = useState(10)
@@ -47,13 +47,9 @@ export default function App() {
         ) : (
           <CompareSidebyside 
             users={users}
-            setUsers={setUsers}
             opsAnnualPerFTE={opsAnnualPerFTE}
-            setOpsAnnualPerFTE={setOpsAnnualPerFTE}
             itFTEs={itFTEs}
-            setItFTEs={setItFTEs}
             itAnnualPerFTE={itAnnualPerFTE}
-            setItAnnualPerFTE={setItAnnualPerFTE}
             sfOpsLabor={sfOpsLabor}
             sfITLabor={sfITLabor}
           />
