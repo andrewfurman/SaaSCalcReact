@@ -1,4 +1,3 @@
-import { useState } from 'react'
 
 export default function CostSidebyside({ 
   users, 
@@ -6,17 +5,17 @@ export default function CostSidebyside({
   itFTEs, 
   itAnnualPerFTE,
   sfOpsLabor,
-  sfITLabor
+  sfITLabor,
+  licenseRate,
+  licenseAnnual,
+  opsReductionRate,
+  itReductionRate
 }) {
-  // Salesforce calculations (mirrored from CostSalesforce)
-  const [licenseRate] = useState(100)
+  // Salesforce calculations (using actual values from state)
   const sfLicenseAnnual = users * licenseRate * 12
   const sfTotalAnnual = sfLicenseAnnual + sfOpsLabor + sfITLabor
 
-  // 8090 calculations (mirrored from Cost8090)
-  const [licenseAnnual] = useState(500000)
-  const [opsReductionRate] = useState(50)
-  const [itReductionRate] = useState(50)
+  // 8090 calculations (using actual values from state)
   const reducedUsers = Math.round(users * ((100 - opsReductionRate) / 100))
   const eightyNinetyOpsLabor = sfOpsLabor * ((100 - opsReductionRate) / 100)
   const eightyNinetyITLabor = sfITLabor * ((100 - itReductionRate) / 100)

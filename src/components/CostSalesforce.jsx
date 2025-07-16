@@ -1,4 +1,3 @@
-import { useState } from 'react'
 
 export default function CostSalesforce({ 
   users, 
@@ -8,9 +7,10 @@ export default function CostSalesforce({
   itFTEs, 
   setItFTEs, 
   itAnnualPerFTE, 
-  setItAnnualPerFTE 
+  setItAnnualPerFTE,
+  licenseRate,
+  setLicenseRate
 }) {
-  const [licenseRate, setLicenseRate] = useState(100)
 
   const sfLicenseAnnual = users * licenseRate * 12
   const sfOpsLabor = users * opsAnnualPerFTE

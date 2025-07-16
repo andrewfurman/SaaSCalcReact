@@ -12,6 +12,14 @@ export default function App() {
   const [opsAnnualPerFTE, setOpsAnnualPerFTE] = useState(80000)
   const [itFTEs, setItFTEs] = useState(20)
   const [itAnnualPerFTE, setItAnnualPerFTE] = useState(120000)
+  
+  // Salesforce specific states
+  const [licenseRate, setLicenseRate] = useState(100)
+  
+  // 8090 specific states
+  const [licenseAnnual, setLicenseAnnual] = useState(500000)
+  const [opsReductionRate, setOpsReductionRate] = useState(50)
+  const [itReductionRate, setItReductionRate] = useState(50)
 
   const sfOpsLabor = users * opsAnnualPerFTE
   const sfITLabor = itFTEs * itAnnualPerFTE
@@ -37,12 +45,20 @@ export default function App() {
             setItFTEs={setItFTEs}
             itAnnualPerFTE={itAnnualPerFTE}
             setItAnnualPerFTE={setItAnnualPerFTE}
+            licenseRate={licenseRate}
+            setLicenseRate={setLicenseRate}
           />
         ) : activeTab === '8090' ? (
           <Cost8090 
             sfOpsLabor={sfOpsLabor}
             sfITLabor={sfITLabor}
             users={users}
+            licenseAnnual={licenseAnnual}
+            setLicenseAnnual={setLicenseAnnual}
+            opsReductionRate={opsReductionRate}
+            setOpsReductionRate={setOpsReductionRate}
+            itReductionRate={itReductionRate}
+            setItReductionRate={setItReductionRate}
           />
         ) : (
           <CostSidebyside 
@@ -52,6 +68,10 @@ export default function App() {
             itAnnualPerFTE={itAnnualPerFTE}
             sfOpsLabor={sfOpsLabor}
             sfITLabor={sfITLabor}
+            licenseRate={licenseRate}
+            licenseAnnual={licenseAnnual}
+            opsReductionRate={opsReductionRate}
+            itReductionRate={itReductionRate}
           />
         )}
       </div>

@@ -1,9 +1,15 @@
-import { useState } from 'react'
 
-export default function Cost8090({ sfOpsLabor, sfITLabor, users }) {
-  const [licenseAnnual, setLicenseAnnual] = useState(500000)
-  const [opsReductionRate, setOpsReductionRate] = useState(50)
-  const [itReductionRate, setItReductionRate] = useState(50)
+export default function Cost8090({ 
+  sfOpsLabor, 
+  sfITLabor, 
+  users, 
+  licenseAnnual, 
+  setLicenseAnnual, 
+  opsReductionRate, 
+  setOpsReductionRate, 
+  itReductionRate, 
+  setItReductionRate 
+}) {
 
   const reducedUsers = Math.round(users * ((100 - opsReductionRate) / 100))
   const eightyNinetyOpsLabor = sfOpsLabor * ((100 - opsReductionRate) / 100)
