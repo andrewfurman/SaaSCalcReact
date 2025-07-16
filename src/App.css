@@ -15,47 +15,44 @@ body {
 }
 
 .calculator-container {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1.5rem;
 }
 
 .header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .header h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #1e293b;
   margin-bottom: 0.5rem;
 }
 
 .header p {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #64748b;
-  max-width: 600px;
-  margin: 0 auto;
 }
 
-.calculator-grid {
+.main-content {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 3rem;
-  margin-bottom: 3rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
 }
 
 .inputs-section {
   background: white;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   height: fit-content;
 }
 
 .inputs-section h2 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: #1e293b;
   margin-bottom: 1.5rem;
@@ -63,164 +60,148 @@ body {
   padding-bottom: 0.5rem;
 }
 
-.input-group {
+.slider-group {
   margin-bottom: 1.5rem;
 }
 
-.input-group label {
-  display: block;
+.slider-group label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-weight: 500;
   color: #374151;
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
 }
 
-.input-group input {
-  width: 100%;
-  padding: 0.75rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
+.slider-group .value {
+  font-weight: 600;
+  color: #3b82f6;
 }
 
-.input-group input:focus {
+.slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #e5e7eb;
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  appearance: none;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  background: #2563eb;
+  transform: scale(1.1);
+}
+
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .results-section {
   background: white;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.results-section h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #1e293b;
-  margin-bottom: 1.5rem;
-  border-bottom: 2px solid #e2e8f0;
-  padding-bottom: 0.5rem;
-}
-
-.results-grid {
+.cost-summary {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
 
-.result-card {
-  background: #f8fafc;
+.total-cost,
+.per-user-cost {
+  text-align: center;
   padding: 1.5rem;
   border-radius: 10px;
-  border-left: 4px solid #64748b;
 }
 
-.result-card.license {
-  border-left-color: #3b82f6;
+.total-cost {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
 }
 
-.result-card.labor {
-  border-left-color: #10b981;
+.per-user-cost {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
 }
 
-.result-card.it {
-  border-left-color: #f59e0b;
+.cost-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
 }
 
-.result-card.total {
-  border-left-color: #ef4444;
-  background: linear-gradient(135deg, #fef2f2 0%, #fef7ff 100%);
+.cost-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
 }
 
-.result-card.per-user {
-  border-left-color: #8b5cf6;
+.breakdown-grid {
+  display: grid;
+  gap: 0.75rem;
 }
 
-.result-card h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #1e293b;
-  margin-bottom: 1rem;
-}
-
-.metric {
+.breakdown-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border-left: 4px solid #e2e8f0;
 }
 
-.metric:last-child {
-  margin-bottom: 0;
+.breakdown-item:nth-child(1) {
+  border-left-color: #3b82f6;
 }
 
-.metric.large {
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #e2e8f0;
+.breakdown-item:nth-child(2) {
+  border-left-color: #10b981;
 }
 
-.metric.large:last-child {
-  border-bottom: none;
+.breakdown-item:nth-child(3) {
+  border-left-color: #f59e0b;
 }
 
-.metric .label {
+.breakdown-item:nth-child(4) {
+  border-left-color: #ef4444;
+}
+
+.breakdown-item:nth-child(5) {
+  border-left-color: #8b5cf6;
+}
+
+.breakdown-label {
   font-size: 0.9rem;
   color: #64748b;
   font-weight: 500;
 }
 
-.metric .value {
-  font-size: 1.1rem;
+.breakdown-value {
+  font-size: 1rem;
   font-weight: 700;
   color: #1e293b;
-}
-
-.metric.large .value {
-  font-size: 1.3rem;
-  color: #dc2626;
-}
-
-.summary-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 2.5rem;
-  border-radius: 12px;
-  text-align: center;
-}
-
-.summary-section h2 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 2rem;
-}
-
-.summary-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-}
-
-.summary-stat {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 1.5rem;
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
-}
-
-.stat-value {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.stat-label {
-  font-size: 0.9rem;
-  opacity: 0.9;
-  font-weight: 500;
 }
 
 @media (max-width: 768px) {
@@ -228,25 +209,20 @@ body {
     padding: 1rem;
   }
   
-  .calculator-grid {
+  .main-content {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
   }
   
   .header h1 {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
   
-  .results-grid {
+  .cost-summary {
     grid-template-columns: 1fr;
   }
   
-  .summary-stats {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  
-  .stat-value {
+  .cost-value {
     font-size: 1.5rem;
   }
 }
@@ -254,10 +230,10 @@ body {
 @media (max-width: 480px) {
   .inputs-section,
   .results-section {
-    padding: 1.5rem;
+    padding: 1rem;
   }
   
-  .summary-section {
-    padding: 2rem;
+  .cost-value {
+    font-size: 1.25rem;
   }
 }

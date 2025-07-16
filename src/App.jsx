@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react'
 import './App.css'
 
@@ -8,7 +7,7 @@ export default function App() {
   const [numUsers, setNumUsers] = useState(100)
   const [itLaborHours, setItLaborHours] = useState(40)
   const [itHourlyRate, setItHourlyRate] = useState(75)
-  
+
   const [calculations, setCalculations] = useState({
     monthlyLicenseCost: 0,
     annualLicenseCost: 0,
@@ -58,150 +57,111 @@ export default function App() {
     <div className="calculator-container">
       <header className="header">
         <h1>Salesforce Total Cost Calculator</h1>
-        <p>Calculate your complete Salesforce investment including licenses, labor, and IT costs</p>
+        <p>Calculate your complete Salesforce investment</p>
       </header>
 
-      <div className="calculator-grid">
+      <div className="main-content">
         <div className="inputs-section">
           <h2>Input Parameters</h2>
-          
-          <div className="input-group">
-            <label htmlFor="sfLicense">Salesforce License Cost ($/month)</label>
+
+          <div className="slider-group">
+            <label>SF License Cost: <span className="value">{formatCurrency(sfLicenseCost)}/month</span></label>
             <input
-              id="sfLicense"
-              type="number"
+              type="range"
+              min="50"
+              max="500"
               value={sfLicenseCost}
               onChange={(e) => setSfLicenseCost(Number(e.target.value))}
-              min="0"
+              className="slider"
             />
           </div>
 
-          <div className="input-group">
-            <label htmlFor="laborCost">Annual Labor Cost for SF Users ($)</label>
+          <div className="slider-group">
+            <label>Annual Labor Cost: <span className="value">{formatCurrency(laborCost)}</span></label>
             <input
-              id="laborCost"
-              type="number"
+              type="range"
+              min="50000"
+              max="500000"
+              step="5000"
               value={laborCost}
               onChange={(e) => setLaborCost(Number(e.target.value))}
-              min="0"
+              className="slider"
             />
           </div>
 
-          <div className="input-group">
-            <label htmlFor="numUsers">Number of Salesforce Users</label>
+          <div className="slider-group">
+            <label>Number of Users: <span className="value">{numUsers}</span></label>
             <input
-              id="numUsers"
-              type="number"
+              type="range"
+              min="10"
+              max="1000"
+              step="10"
               value={numUsers}
               onChange={(e) => setNumUsers(Number(e.target.value))}
-              min="1"
+              className="slider"
             />
           </div>
 
-          <div className="input-group">
-            <label htmlFor="itHours">IT Configuration Hours</label>
+          <div className="slider-group">
+            <label>IT Config Hours: <span className="value">{itLaborHours}</span></label>
             <input
-              id="itHours"
-              type="number"
+              type="range"
+              min="10"
+              max="200"
+              step="5"
               value={itLaborHours}
               onChange={(e) => setItLaborHours(Number(e.target.value))}
-              min="0"
+              className="slider"
             />
           </div>
 
-          <div className="input-group">
-            <label htmlFor="itRate">IT Hourly Rate ($/hour)</label>
+          <div className="slider-group">
+            <label>IT Hourly Rate: <span className="value">{formatCurrency(itHourlyRate)}/hr</span></label>
             <input
-              id="itRate"
-              type="number"
+              type="range"
+              min="50"
+              max="200"
+              step="5"
               value={itHourlyRate}
               onChange={(e) => setItHourlyRate(Number(e.target.value))}
-              min="0"
+              className="slider"
             />
           </div>
         </div>
 
         <div className="results-section">
-          <h2>Cost Breakdown</h2>
-          
-          <div className="results-grid">
-            <div className="result-card license">
-              <h3>Licensing Costs</h3>
-              <div className="metric">
-                <span className="label">Monthly</span>
-                <span className="value">{formatCurrency(calculations.monthlyLicenseCost)}</span>
-              </div>
-              <div className="metric">
-                <span className="label">Annual</span>
-                <span className="value">{formatCurrency(calculations.annualLicenseCost)}</span>
-              </div>
+          <div className="cost-summary">
+            <div className="total-cost">
+              <div className="cost-value">{formatCurrency(calculations.totalAnnualCost)}</div>
+              <div className="cost-label">Total Annual Cost</div>
             </div>
-
-            <div className="result-card labor">
-              <h3>Labor Costs</h3>
-              <div className="metric">
-                <span className="label">Annual Total</span>
-                <span className="value">{formatCurrency(calculations.annualLaborCost)}</span>
-              </div>
-              <div className="metric">
-                <span className="label">Per User/Year</span>
-                <span className="value">{formatCurrency(calculations.laborCostPerUser)}</span>
-              </div>
-            </div>
-
-            <div className="result-card it">
-              <h3>IT Configuration</h3>
-              <div className="metric">
-                <span className="label">One-time Cost</span>
-                <span className="value">{formatCurrency(calculations.itConfigCost)}</span>
-              </div>
-              <div className="metric">
-                <span className="label">Hours</span>
-                <span className="value">{itLaborHours}</span>
-              </div>
-            </div>
-
-            <div className="result-card total">
-              <h3>Total Investment</h3>
-              <div className="metric large">
-                <span className="label">Monthly Total</span>
-                <span className="value">{formatCurrency(calculations.totalMonthlyCost)}</span>
-              </div>
-              <div className="metric large">
-                <span className="label">Annual Total</span>
-                <span className="value">{formatCurrency(calculations.totalAnnualCost)}</span>
-              </div>
-            </div>
-
-            <div className="result-card per-user">
-              <h3>Per User Costs</h3>
-              <div className="metric">
-                <span className="label">Monthly/User</span>
-                <span className="value">{formatCurrency(calculations.costPerUserPerMonth)}</span>
-              </div>
-              <div className="metric">
-                <span className="label">Annual/User</span>
-                <span className="value">{formatCurrency(calculations.costPerUserPerYear)}</span>
-              </div>
+            <div className="per-user-cost">
+              <div className="cost-value">{formatCurrency(calculations.costPerUserPerYear)}</div>
+              <div className="cost-label">Cost Per User/Year</div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div className="summary-section">
-        <h2>Executive Summary</h2>
-        <div className="summary-stats">
-          <div className="summary-stat">
-            <div className="stat-value">{formatCurrency(calculations.totalAnnualCost)}</div>
-            <div className="stat-label">Total Annual Investment</div>
-          </div>
-          <div className="summary-stat">
-            <div className="stat-value">{formatCurrency(calculations.costPerUserPerYear)}</div>
-            <div className="stat-label">Cost Per User Per Year</div>
-          </div>
-          <div className="summary-stat">
-            <div className="stat-value">{numUsers}</div>
-            <div className="stat-label">Total Users</div>
+          <div className="breakdown-grid">
+            <div className="breakdown-item">
+              <span className="breakdown-label">License (Annual)</span>
+              <span className="breakdown-value">{formatCurrency(calculations.annualLicenseCost)}</span>
+            </div>
+            <div className="breakdown-item">
+              <span className="breakdown-label">Labor (Annual)</span>
+              <span className="breakdown-value">{formatCurrency(calculations.annualLaborCost)}</span>
+            </div>
+            <div className="breakdown-item">
+              <span className="breakdown-label">IT Config</span>
+              <span className="breakdown-value">{formatCurrency(calculations.itConfigCost)}</span>
+            </div>
+            <div className="breakdown-item">
+              <span className="breakdown-label">Monthly Total</span>
+              <span className="breakdown-value">{formatCurrency(calculations.totalMonthlyCost)}</span>
+            </div>
+            <div className="breakdown-item">
+              <span className="breakdown-label">Cost/User/Month</span>
+              <span className="breakdown-value">{formatCurrency(calculations.costPerUserPerMonth)}</span>
+            </div>
           </div>
         </div>
       </div>
