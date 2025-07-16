@@ -8,22 +8,18 @@ export default function App() {
   const [numUsers, setNumUsers] = useState(100)
   const [itAnnualCost, setItAnnualCost] = useState(150000)
   const [itFtes, setItFtes] = useState(3)
+  const [opsLaborReduction, setOpsLaborReduction] = useState(25)
+  const [itLaborReduction, setItLaborReduction] = useState(15)
+  const [calculations, setCalculations] = useState({})
 
-  // 8090 Software comparison inputs
-  const [opsLaborReduction, setOpsLaborReduction] = useState(30) // percentage
-  const [itLaborReduction, setItLaborReduction] = useState(25) // percentage
-
-  const [calculations, setCalculations] = useState({
-    monthlyLicenseCost: 0,
-    annualLicenseCost: 0,
-    annualLaborCost: 0,
-    laborCostPerUser: 0,
-    itConfigCost: 0,
-    totalMonthlyCost: 0,
-    totalAnnualCost: 0,
-    costPerUserPerMonth: 0,
-    costPerUserPerYear: 0
-  })
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount)
+  }
 
   useEffect(() => {
     // Salesforce calculations
@@ -53,11 +49,12 @@ export default function App() {
     const savingsPerUser = costPerUserPerYear - cost8090PerUser
 
     setCalculations({
+      // Salesforce calculations
       monthlyLicenseCost,
       annualLicenseCost,
       annualLaborCost,
-      laborCostPerUser,
       totalItCost,
+      laborCostPerUser,
       totalMonthlyCost,
       totalAnnualCost,
       costPerUserPerMonth,
@@ -71,157 +68,160 @@ export default function App() {
       cost8090PerUser,
       monthlyCost8090,
       monthlyCost8090PerUser,
+      // Savings
       annualSavings,
       monthlySavings,
       savingsPerUser
     })
   }, [sfLicenseCost, laborCost, numUsers, itAnnualCost, itFtes, opsLaborReduction, itLaborReduction])
 
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(amount)
-  }
-
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-slate-50 min-h-screen">
-      <header className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-slate-800 mb-2">Salesforce Total Cost Calculator</h1>
-        <p className="text-slate-600">Calculate your complete Salesforce investment</p>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4">
+      <div className="max-w-7xl mx-auto">
+        
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-slate-800 mb-2">Cost Comparison Calculator</h1>
+          <p className="text-slate-600">Salesforce vs 8090 Software Solutions</p>
+        </div>
 
-      <div className="grid lg:grid-cols-2 gap-8">
-        <div className="bg-white p-6 rounded-xl shadow-sm">
-          <h2 className="text-xl font-semibold text-slate-800 mb-6 pb-2 border-b-2 border-slate-200">Input Parameters</h2>
-
-          <div className="mb-6 pb-4 border-b border-slate-200">
-            <h3 className="text-sm font-semibold text-slate-700 mb-4 px-3 py-2 bg-slate-100 rounded-md border-l-3 border-blue-500">Software Licensing</h3>
-            <div className="mb-6">
-              <label className="flex justify-between items-center font-medium text-slate-700 mb-2 text-sm">
-                SF License Cost per User: 
-                <span className="font-semibold text-blue-600">{formatCurrency(sfLicenseCost)}/month</span>
-              </label>
-              <input
-                type="range"
-                min="100"
-                max="800"
-                value={sfLicenseCost}
-                onChange={(e) => setSfLicenseCost(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer slider::-webkit-slider-thumb:appearance-none slider::-webkit-slider-thumb:h-5 slider::-webkit-slider-thumb:w-5 slider::-webkit-slider-thumb:rounded-full slider::-webkit-slider-thumb:bg-blue-500"
-              />
-            </div>
-          </div>
-
-          <div className="mb-6 pb-4 border-b border-slate-200">
-            <h3 className="text-sm font-semibold text-slate-700 mb-4 px-3 py-2 bg-slate-100 rounded-md border-l-3 border-blue-500">Operations Labor</h3>
-            <div className="mb-6">
-              <label className="flex justify-between items-center font-medium text-slate-700 mb-2 text-sm">
-                Annual Labor Cost: 
-                <span className="font-semibold text-blue-600">{formatCurrency(laborCost)}</span>
-              </label>
-              <input
-                type="range"
-                min="50000"
-                max="500000"
-                step="5000"
-                value={laborCost}
-                onChange={(e) => setLaborCost(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
-              />
-            </div>
-
-            <div className="mb-6">
-              <label className="flex justify-between items-center font-medium text-slate-700 mb-2 text-sm">
-                Number of Users: 
-                <span className="font-semibold text-blue-600">{numUsers}</span>
-              </label>
-              <input
-                type="range"
-                min="10"
-                max="1000"
-                step="10"
-                value={numUsers}
-                onChange={(e) => setNumUsers(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
-              />
-            </div>
-          </div>
-
-          <div className="mb-6 pb-4 border-b border-slate-200">
-            <h3 className="text-sm font-semibold text-slate-700 mb-4 px-3 py-2 bg-slate-100 rounded-md border-l-3 border-blue-500">IT Labor</h3>
-            <div className="mb-6">
-              <label className="flex justify-between items-center font-medium text-slate-700 mb-2 text-sm">
-                Annual IT Labor Cost: 
-                <span className="font-semibold text-blue-600">{formatCurrency(itAnnualCost)}</span>
-              </label>
-              <input
-                type="range"
-                min="100000"
-                max="500000"
-                step="10000"
-                value={itAnnualCost}
-                onChange={(e) => setItAnnualCost(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
-              />
-            </div>
-
-            <div className="mb-6">
-              <label className="flex justify-between items-center font-medium text-slate-700 mb-2 text-sm">
-                Number of IT FTEs: 
-                <span className="font-semibold text-blue-600">{itFtes}</span>
-              </label>
-              <input
-                type="range"
-                min="1"
-                max="20"
-                step="1"
-                value={itFtes}
-                onChange={(e) => setItFtes(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
-              />
-            </div>
-          </div>
-
-          <div className="mt-8 pt-6 border-t-2 border-slate-200">
-            <h3 className="text-sm font-semibold text-slate-700 mb-4 px-3 py-2 bg-yellow-100 rounded-md border-l-3 border-yellow-500">8090 Software Comparison</h3>
+        {/* Input Controls */}
+        <div className="bg-white p-6 rounded-xl shadow-sm mb-8">
+          <h2 className="text-lg font-semibold text-slate-800 mb-6">Input Parameters</h2>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             
-            <div className="mb-6">
-              <label className="flex justify-between items-center font-medium text-slate-700 mb-2 text-sm">
-                Ops Labor Reduction: 
-                <span className="font-semibold text-blue-600">{opsLaborReduction}%</span>
-              </label>
-              <input
-                type="range"
-                min="0"
-                max="80"
-                step="5"
-                value={opsLaborReduction}
-                onChange={(e) => setOpsLaborReduction(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
-              />
+            {/* Software Licensing */}
+            <div className="border-b border-slate-200 pb-6">
+              <h3 className="text-sm font-semibold text-slate-700 mb-4 px-3 py-2 bg-slate-100 rounded-md border-l-4 border-blue-500">Software Licensing</h3>
+              <div className="mb-6">
+                <label className="flex justify-between items-center font-medium text-slate-700 mb-2 text-sm">
+                  SF License Cost per User: 
+                  <span className="font-semibold text-blue-600">{formatCurrency(sfLicenseCost)}/month</span>
+                </label>
+                <input
+                  type="range"
+                  min="100"
+                  max="800"
+                  value={sfLicenseCost}
+                  onChange={(e) => setSfLicenseCost(Number(e.target.value))}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
+                />
+              </div>
             </div>
 
-            <div className="mb-6">
-              <label className="flex justify-between items-center font-medium text-slate-700 mb-2 text-sm">
-                IT Labor Reduction: 
-                <span className="font-semibold text-blue-600">{itLaborReduction}%</span>
-              </label>
-              <input
-                type="range"
-                min="0"
-                max="70"
-                step="5"
-                value={itLaborReduction}
-                onChange={(e) => setItLaborReduction(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
-              />
+            {/* Operations Labor */}
+            <div className="border-b border-slate-200 pb-6">
+              <h3 className="text-sm font-semibold text-slate-700 mb-4 px-3 py-2 bg-slate-100 rounded-md border-l-4 border-blue-500">Operations Labor</h3>
+              <div className="mb-6">
+                <label className="flex justify-between items-center font-medium text-slate-700 mb-2 text-sm">
+                  Annual Labor Cost: 
+                  <span className="font-semibold text-blue-600">{formatCurrency(laborCost)}</span>
+                </label>
+                <input
+                  type="range"
+                  min="50000"
+                  max="500000"
+                  step="5000"
+                  value={laborCost}
+                  onChange={(e) => setLaborCost(Number(e.target.value))}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
+                />
+              </div>
+            </div>
+
+            {/* Number of Users */}
+            <div className="border-b border-slate-200 pb-6">
+              <h3 className="text-sm font-semibold text-slate-700 mb-4 px-3 py-2 bg-slate-100 rounded-md border-l-4 border-blue-500">User Configuration</h3>
+              <div className="mb-6">
+                <label className="flex justify-between items-center font-medium text-slate-700 mb-2 text-sm">
+                  Number of Users: 
+                  <span className="font-semibold text-blue-600">{numUsers}</span>
+                </label>
+                <input
+                  type="range"
+                  min="10"
+                  max="1000"
+                  step="10"
+                  value={numUsers}
+                  onChange={(e) => setNumUsers(Number(e.target.value))}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
+                />
+              </div>
+            </div>
+
+            {/* IT Labor */}
+            <div className="border-b border-slate-200 pb-6">
+              <h3 className="text-sm font-semibold text-slate-700 mb-4 px-3 py-2 bg-slate-100 rounded-md border-l-4 border-blue-500">IT Labor</h3>
+              <div className="mb-4">
+                <label className="flex justify-between items-center font-medium text-slate-700 mb-2 text-sm">
+                  Annual IT Cost per FTE: 
+                  <span className="font-semibold text-blue-600">{formatCurrency(itAnnualCost)}</span>
+                </label>
+                <input
+                  type="range"
+                  min="80000"
+                  max="300000"
+                  step="5000"
+                  value={itAnnualCost}
+                  onChange={(e) => setItAnnualCost(Number(e.target.value))}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
+                />
+              </div>
+              <div>
+                <label className="flex justify-between items-center font-medium text-slate-700 mb-2 text-sm">
+                  Number of IT FTEs: 
+                  <span className="font-semibold text-blue-600">{itFtes}</span>
+                </label>
+                <input
+                  type="range"
+                  min="1"
+                  max="10"
+                  value={itFtes}
+                  onChange={(e) => setItFtes(Number(e.target.value))}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
+                />
+              </div>
+            </div>
+
+            {/* Labor Reduction */}
+            <div className="border-b border-slate-200 pb-6 md:col-span-2">
+              <h3 className="text-sm font-semibold text-slate-700 mb-4 px-3 py-2 bg-slate-100 rounded-md border-l-4 border-blue-500">Labor Reduction with 8090</h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="flex justify-between items-center font-medium text-slate-700 mb-2 text-sm">
+                    Ops Labor Reduction: 
+                    <span className="font-semibold text-blue-600">{opsLaborReduction}%</span>
+                  </label>
+                  <input
+                    type="range"
+                    min="0"
+                    max="50"
+                    value={opsLaborReduction}
+                    onChange={(e) => setOpsLaborReduction(Number(e.target.value))}
+                    className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
+                  />
+                </div>
+                <div>
+                  <label className="flex justify-between items-center font-medium text-slate-700 mb-2 text-sm">
+                    IT Labor Reduction: 
+                    <span className="font-semibold text-blue-600">{itLaborReduction}%</span>
+                  </label>
+                  <input
+                    type="range"
+                    min="0"
+                    max="30"
+                    value={itLaborReduction}
+                    onChange={(e) => setItLaborReduction(Number(e.target.value))}
+                    className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
+        {/* Results */}
         <div className="bg-white p-6 rounded-xl shadow-sm">
           <div className="grid lg:grid-cols-3 gap-6 mb-8">
             <div className="text-center">
@@ -267,6 +267,7 @@ export default function App() {
             </div>
           </div>
 
+          {/* Detailed Breakdown */}
           <div className="grid lg:grid-cols-2 gap-8">
             <div>
               <h4 className="text-sm font-semibold text-slate-700 mb-4 text-center p-2 bg-slate-100 rounded-lg">Salesforce Breakdown</h4>
@@ -288,11 +289,18 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="bg-slate-50 p-4 rounded-lg border-l-4 border-amber-500">
-                  <h5 className="text-xs font-semibold text-amber-600 mb-2 uppercase tracking-wider">IT Labor</h5>
+                <div className="bg-slate-50 p-4 rounded-lg border-l-4 border-purple-500">
+                  <h5 className="text-xs font-semibold text-purple-600 mb-2 uppercase tracking-wider">IT Labor</h5>
                   <div className="flex justify-between items-center py-2 border-b border-slate-200">
-                    <span className="text-sm text-slate-600 font-medium">Total IT Cost ({itFtes} FTEs)</span>
+                    <span className="text-sm text-slate-600 font-medium">IT Cost ({itFtes} FTEs)</span>
                     <span className="text-sm font-bold text-slate-800">{formatCurrency(calculations.totalItCost)}</span>
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-r from-slate-700 to-slate-600 text-white p-4 rounded-lg">
+                  <div className="flex justify-between items-center">
+                    <span className="font-semibold">Total Annual Cost</span>
+                    <span className="text-lg font-bold">{formatCurrency(calculations.totalAnnualCost)}</span>
                   </div>
                 </div>
               </div>
@@ -302,8 +310,8 @@ export default function App() {
               <h4 className="text-sm font-semibold text-slate-700 mb-4 text-center p-2 bg-slate-100 rounded-lg">8090 Software Breakdown</h4>
               
               <div className="space-y-6">
-                <div className="bg-slate-50 p-4 rounded-lg border-l-4 border-blue-500">
-                  <h5 className="text-xs font-semibold text-blue-600 mb-2 uppercase tracking-wider">Software Cost</h5>
+                <div className="bg-slate-50 p-4 rounded-lg border-l-4 border-orange-500">
+                  <h5 className="text-xs font-semibold text-orange-600 mb-2 uppercase tracking-wider">Software License</h5>
                   <div className="flex justify-between items-center py-2 border-b border-slate-200">
                     <span className="text-sm text-slate-600 font-medium">Annual License</span>
                     <span className="text-sm font-bold text-slate-800">{formatCurrency(calculations.softwareCost8090)}</span>
@@ -313,16 +321,23 @@ export default function App() {
                 <div className="bg-slate-50 p-4 rounded-lg border-l-4 border-emerald-500">
                   <h5 className="text-xs font-semibold text-emerald-600 mb-2 uppercase tracking-wider">Reduced Operations Labor</h5>
                   <div className="flex justify-between items-center py-2 border-b border-slate-200">
-                    <span className="text-sm text-slate-600 font-medium">Reduced Labor ({opsLaborReduction}% savings)</span>
+                    <span className="text-sm text-slate-600 font-medium">Total Labor (-{opsLaborReduction}%)</span>
                     <span className="text-sm font-bold text-slate-800">{formatCurrency(calculations.reducedOpsLabor)}</span>
                   </div>
                 </div>
 
-                <div className="bg-slate-50 p-4 rounded-lg border-l-4 border-amber-500">
-                  <h5 className="text-xs font-semibold text-amber-600 mb-2 uppercase tracking-wider">Reduced IT Labor</h5>
+                <div className="bg-slate-50 p-4 rounded-lg border-l-4 border-purple-500">
+                  <h5 className="text-xs font-semibold text-purple-600 mb-2 uppercase tracking-wider">Reduced IT Labor</h5>
                   <div className="flex justify-between items-center py-2 border-b border-slate-200">
-                    <span className="text-sm text-slate-600 font-medium">Reduced IT ({itLaborReduction}% savings)</span>
+                    <span className="text-sm text-slate-600 font-medium">IT Cost (-{itLaborReduction}%)</span>
                     <span className="text-sm font-bold text-slate-800">{formatCurrency(calculations.reducedItLabor)}</span>
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-r from-slate-700 to-slate-600 text-white p-4 rounded-lg">
+                  <div className="flex justify-between items-center">
+                    <span className="font-semibold">Total Annual Cost</span>
+                    <span className="text-lg font-bold">{formatCurrency(calculations.total8090Cost)}</span>
                   </div>
                 </div>
               </div>
