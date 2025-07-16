@@ -5,6 +5,7 @@ export default function EightyNinetyCalculator({ sfOpsLabor, sfITLabor, users })
   const [opsReductionRate, setOpsReductionRate] = useState(50)
   const [itReductionRate, setItReductionRate] = useState(50)
 
+  const reducedUsers = Math.round(users * ((100 - opsReductionRate) / 100))
   const eightyNinetyOpsLabor = sfOpsLabor * ((100 - opsReductionRate) / 100)
   const eightyNinetyITLabor = sfITLabor * ((100 - itReductionRate) / 100)
   const eightyNinetyTotalAnnual = licenseAnnual + eightyNinetyOpsLabor + eightyNinetyITLabor
@@ -24,9 +25,9 @@ export default function EightyNinetyCalculator({ sfOpsLabor, sfITLabor, users })
       <div className="bg-white rounded-2xl p-6 shadow-xl border border-gray-200">
         <div className="text-center">
           <h3 className="text-2xl font-bold text-black mb-4">Total Users</h3>
-          <div className="text-3xl font-bold text-black">{users} users</div>
+          <div className="text-3xl font-bold text-black">{reducedUsers} users</div>
           <div className="text-sm text-gray-600 mt-2">
-            (Set via Salesforce calculator)
+            Reduced by {opsReductionRate}% from Salesforce ({users} users)
           </div>
         </div>
       </div>
@@ -43,7 +44,7 @@ export default function EightyNinetyCalculator({ sfOpsLabor, sfITLabor, users })
               <input
                 type="range"
                 min="500000"
-                max="1000000"
+                max="2000000"
                 step="100000"
                 value={licenseAnnual}
                 onChange={(e) => setLicenseAnnual(Number(e.target.value))}
@@ -52,7 +53,7 @@ export default function EightyNinetyCalculator({ sfOpsLabor, sfITLabor, users })
               <div className="flex justify-between text-sm text-gray-600 mt-1">
                 <span>$500k</span>
                 <span className="font-semibold text-black">{formatCurrency(licenseAnnual)}/year</span>
-                <span>$1M</span>
+                <span>$2M</span>
               </div>
             </div>
           </div>
@@ -196,7 +197,7 @@ export default function EightyNinetyCalculator({ sfOpsLabor, sfITLabor, users })
           <div className="lg:col-span-2">
             <h3 className="text-xl font-bold text-white mb-2">Total Annual Cost</h3>
             <div className="text-sm text-blue-200">
-              License Costs + Maintenance + IT Labor
+              Licenses + Ops Labor + IT Labor
             </div>
           </div>
           
