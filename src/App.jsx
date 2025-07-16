@@ -26,7 +26,7 @@ export default function App() {
 
   useEffect(() => {
     // Salesforce calculations
-    const monthlyLicenseCost = sfLicenseCost
+    const monthlyLicenseCost = sfLicenseCost * numUsers  // $100 per user per month
     const annualLicenseCost = monthlyLicenseCost * 12
     const annualLaborCost = laborCost * numUsers  // Annual labor cost per user * number of users
     const totalItCost = itAnnualCost * itFtes     // Annual IT cost per FTE * number of IT FTEs
@@ -97,7 +97,7 @@ export default function App() {
           <div className="input-category">
             <h3>Software Licensing</h3>
             <div className="slider-group">
-              <label>SF License Cost: <span className="value">{formatCurrency(sfLicenseCost)}/month</span></label>
+              <label>SF License Cost per User: <span className="value">{formatCurrency(sfLicenseCost)}/month</span></label>
               <input
                 type="range"
                 min="50"
@@ -251,7 +251,7 @@ export default function App() {
               <div className="breakdown-category">
                 <h5>Software Licensing</h5>
                 <div className="breakdown-item">
-                  <span className="breakdown-label">License (Annual)</span>
+                  <span className="breakdown-label">License (Annual for {numUsers} users)</span>
                   <span className="breakdown-value">{formatCurrency(calculations.annualLicenseCost)}</span>
                 </div>
               </div>
