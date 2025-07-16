@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 export default function Tabs({ onTabChange }) {
-  const [activeTab, setActiveTab] = useState('salesforce')
+  const [activeTab, setActiveTab] = useState('8090')
 
   const handleTabClick = (tab) => {
     setActiveTab(tab)

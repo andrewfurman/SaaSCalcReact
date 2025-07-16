@@ -1,12 +1,16 @@
 import { useState } from 'react'
 
-export default function SalesforceCalculator() {
-  const [users, setUsers] = useState(100)
+export default function SalesforceCalculator({ 
+  users, 
+  setUsers, 
+  opsAnnualPerFTE, 
+  setOpsAnnualPerFTE, 
+  itFTEs, 
+  setItFTEs, 
+  itAnnualPerFTE, 
+  setItAnnualPerFTE 
+}) {
   const [licenseRate, setLicenseRate] = useState(100)
-  const [opsFTEs, setOpsFTEs] = useState(3)
-  const [opsAnnualPerFTE, setOpsAnnualPerFTE] = useState(80000)
-  const [itFTEs, setItFTEs] = useState(10)
-  const [itAnnualPerFTE, setItAnnualPerFTE] = useState(120000)
 
   const sfLicenseAnnual = users * licenseRate * 12
   const sfOpsLabor = users * opsAnnualPerFTE
