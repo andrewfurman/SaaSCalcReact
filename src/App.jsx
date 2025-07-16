@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react'
 import './App.css'
 
@@ -86,35 +87,41 @@ export default function App() {
   }
 
   return (
-    <div className="calculator-container">
-      <header className="header">
-        <h1>Salesforce Total Cost Calculator</h1>
-        <p>Calculate your complete Salesforce investment</p>
+    <div className="max-w-6xl mx-auto p-6 bg-slate-50 min-h-screen">
+      <header className="text-center mb-8">
+        <h1 className="text-3xl font-bold text-slate-800 mb-2">Salesforce Total Cost Calculator</h1>
+        <p className="text-slate-600">Calculate your complete Salesforce investment</p>
       </header>
 
-      <div className="main-content">
-        <div className="inputs-section">
-          <h2>Input Parameters</h2>
+      <div className="grid lg:grid-cols-2 gap-8">
+        <div className="bg-white p-6 rounded-xl shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-800 mb-6 pb-2 border-b-2 border-slate-200">Input Parameters</h2>
 
-          <div className="input-category">
-            <h3>Software Licensing</h3>
-            <div className="slider-group">
-              <label>SF License Cost per User: <span className="value">{formatCurrency(sfLicenseCost)}/month</span></label>
+          <div className="mb-6 pb-4 border-b border-slate-200">
+            <h3 className="text-sm font-semibold text-slate-700 mb-4 px-3 py-2 bg-slate-100 rounded-md border-l-3 border-blue-500">Software Licensing</h3>
+            <div className="mb-6">
+              <label className="flex justify-between items-center font-medium text-slate-700 mb-2 text-sm">
+                SF License Cost per User: 
+                <span className="font-semibold text-blue-600">{formatCurrency(sfLicenseCost)}/month</span>
+              </label>
               <input
                 type="range"
                 min="100"
                 max="800"
                 value={sfLicenseCost}
                 onChange={(e) => setSfLicenseCost(Number(e.target.value))}
-                className="slider"
+                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer slider::-webkit-slider-thumb:appearance-none slider::-webkit-slider-thumb:h-5 slider::-webkit-slider-thumb:w-5 slider::-webkit-slider-thumb:rounded-full slider::-webkit-slider-thumb:bg-blue-500"
               />
             </div>
           </div>
 
-          <div className="input-category">
-            <h3>Operations Labor</h3>
-            <div className="slider-group">
-              <label>Annual Labor Cost: <span className="value">{formatCurrency(laborCost)}</span></label>
+          <div className="mb-6 pb-4 border-b border-slate-200">
+            <h3 className="text-sm font-semibold text-slate-700 mb-4 px-3 py-2 bg-slate-100 rounded-md border-l-3 border-blue-500">Operations Labor</h3>
+            <div className="mb-6">
+              <label className="flex justify-between items-center font-medium text-slate-700 mb-2 text-sm">
+                Annual Labor Cost: 
+                <span className="font-semibold text-blue-600">{formatCurrency(laborCost)}</span>
+              </label>
               <input
                 type="range"
                 min="50000"
@@ -122,12 +129,15 @@ export default function App() {
                 step="5000"
                 value={laborCost}
                 onChange={(e) => setLaborCost(Number(e.target.value))}
-                className="slider"
+                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
               />
             </div>
 
-            <div className="slider-group">
-              <label>Number of Users: <span className="value">{numUsers}</span></label>
+            <div className="mb-6">
+              <label className="flex justify-between items-center font-medium text-slate-700 mb-2 text-sm">
+                Number of Users: 
+                <span className="font-semibold text-blue-600">{numUsers}</span>
+              </label>
               <input
                 type="range"
                 min="10"
@@ -135,15 +145,18 @@ export default function App() {
                 step="10"
                 value={numUsers}
                 onChange={(e) => setNumUsers(Number(e.target.value))}
-                className="slider"
+                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
               />
             </div>
           </div>
 
-          <div className="input-category">
-            <h3>IT Labor</h3>
-            <div className="slider-group">
-              <label>Annual IT Labor Cost: <span className="value">{formatCurrency(itAnnualCost)}</span></label>
+          <div className="mb-6 pb-4 border-b border-slate-200">
+            <h3 className="text-sm font-semibold text-slate-700 mb-4 px-3 py-2 bg-slate-100 rounded-md border-l-3 border-blue-500">IT Labor</h3>
+            <div className="mb-6">
+              <label className="flex justify-between items-center font-medium text-slate-700 mb-2 text-sm">
+                Annual IT Labor Cost: 
+                <span className="font-semibold text-blue-600">{formatCurrency(itAnnualCost)}</span>
+              </label>
               <input
                 type="range"
                 min="100000"
@@ -151,12 +164,15 @@ export default function App() {
                 step="10000"
                 value={itAnnualCost}
                 onChange={(e) => setItAnnualCost(Number(e.target.value))}
-                className="slider"
+                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
               />
             </div>
 
-            <div className="slider-group">
-              <label>Number of IT FTEs: <span className="value">{itFtes}</span></label>
+            <div className="mb-6">
+              <label className="flex justify-between items-center font-medium text-slate-700 mb-2 text-sm">
+                Number of IT FTEs: 
+                <span className="font-semibold text-blue-600">{itFtes}</span>
+              </label>
               <input
                 type="range"
                 min="1"
@@ -164,16 +180,19 @@ export default function App() {
                 step="1"
                 value={itFtes}
                 onChange={(e) => setItFtes(Number(e.target.value))}
-                className="slider"
+                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
               />
             </div>
           </div>
 
-          <div className="comparison-section">
-            <h3>8090 Software Comparison</h3>
+          <div className="mt-8 pt-6 border-t-2 border-slate-200">
+            <h3 className="text-sm font-semibold text-slate-700 mb-4 px-3 py-2 bg-yellow-100 rounded-md border-l-3 border-yellow-500">8090 Software Comparison</h3>
             
-            <div className="slider-group">
-              <label>Ops Labor Reduction: <span className="value">{opsLaborReduction}%</span></label>
+            <div className="mb-6">
+              <label className="flex justify-between items-center font-medium text-slate-700 mb-2 text-sm">
+                Ops Labor Reduction: 
+                <span className="font-semibold text-blue-600">{opsLaborReduction}%</span>
+              </label>
               <input
                 type="range"
                 min="0"
@@ -181,12 +200,15 @@ export default function App() {
                 step="5"
                 value={opsLaborReduction}
                 onChange={(e) => setOpsLaborReduction(Number(e.target.value))}
-                className="slider"
+                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
               />
             </div>
 
-            <div className="slider-group">
-              <label>IT Labor Reduction: <span className="value">{itLaborReduction}%</span></label>
+            <div className="mb-6">
+              <label className="flex justify-between items-center font-medium text-slate-700 mb-2 text-sm">
+                IT Labor Reduction: 
+                <span className="font-semibold text-blue-600">{itLaborReduction}%</span>
+              </label>
               <input
                 type="range"
                 min="0"
@@ -194,110 +216,114 @@ export default function App() {
                 step="5"
                 value={itLaborReduction}
                 onChange={(e) => setItLaborReduction(Number(e.target.value))}
-                className="slider"
+                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
               />
             </div>
-
-            
           </div>
         </div>
 
-        <div className="results-section">
-          <div className="comparison-grid">
-            <div className="salesforce-summary">
-              <h3>Salesforce</h3>
-              <div className="cost-summary">
-                <div className="total-cost sf">
-                  <div className="cost-value">{formatCurrency(calculations.totalAnnualCost)}</div>
-                  <div className="cost-label">Total Annual Cost</div>
+        <div className="bg-white p-6 rounded-xl shadow-sm">
+          <div className="grid lg:grid-cols-3 gap-6 mb-8">
+            <div className="text-center">
+              <h3 className="text-sm font-semibold text-slate-700 mb-4">Salesforce</h3>
+              <div className="space-y-4">
+                <div className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white p-6 rounded-xl">
+                  <div className="text-2xl font-bold mb-2">{formatCurrency(calculations.totalAnnualCost)}</div>
+                  <div className="text-sm opacity-90">Total Annual Cost</div>
                 </div>
-                <div className="per-user-cost sf">
-                  <div className="cost-value">{formatCurrency(calculations.costPerUserPerYear)}</div>
-                  <div className="cost-label">Cost Per User/Year</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="software-8090-summary">
-              <h3>8090 Software</h3>
-              <div className="cost-summary">
-                <div className="total-cost alt">
-                  <div className="cost-value">{formatCurrency(calculations.total8090Cost)}</div>
-                  <div className="cost-label">Total Annual Cost</div>
-                </div>
-                <div className="per-user-cost alt">
-                  <div className="cost-value">{formatCurrency(calculations.cost8090PerUser)}</div>
-                  <div className="cost-label">Cost Per User/Year</div>
+                <div className="bg-gradient-to-br from-pink-500 to-red-500 text-white p-6 rounded-xl">
+                  <div className="text-2xl font-bold mb-2">{formatCurrency(calculations.costPerUserPerYear)}</div>
+                  <div className="text-sm opacity-90">Cost Per User/Year</div>
                 </div>
               </div>
             </div>
 
-            <div className="savings-summary">
-              <h3>Potential Savings</h3>
-              <div className="cost-summary">
-                <div className="total-cost savings">
-                  <div className="cost-value">{formatCurrency(Math.abs(calculations.annualSavings))}</div>
-                  <div className="cost-label">{calculations.annualSavings >= 0 ? 'Annual Savings' : 'Annual Premium'}</div>
+            <div className="text-center">
+              <h3 className="text-sm font-semibold text-slate-700 mb-4">8090 Software</h3>
+              <div className="space-y-4">
+                <div className="bg-gradient-to-br from-emerald-500 to-teal-600 text-white p-6 rounded-xl">
+                  <div className="text-2xl font-bold mb-2">{formatCurrency(calculations.total8090Cost)}</div>
+                  <div className="text-sm opacity-90">Total Annual Cost</div>
                 </div>
-                <div className="per-user-cost savings">
-                  <div className="cost-value">{formatCurrency(Math.abs(calculations.savingsPerUser))}</div>
-                  <div className="cost-label">{calculations.savingsPerUser >= 0 ? 'Savings Per User' : 'Premium Per User'}</div>
+                <div className="bg-gradient-to-br from-cyan-500 to-blue-500 text-white p-6 rounded-xl">
+                  <div className="text-2xl font-bold mb-2">{formatCurrency(calculations.cost8090PerUser)}</div>
+                  <div className="text-sm opacity-90">Cost Per User/Year</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <h3 className="text-sm font-semibold text-slate-700 mb-4">Potential Savings</h3>
+              <div className="space-y-4">
+                <div className="bg-gradient-to-br from-amber-500 to-orange-600 text-white p-6 rounded-xl">
+                  <div className="text-2xl font-bold mb-2">{formatCurrency(Math.abs(calculations.annualSavings))}</div>
+                  <div className="text-sm opacity-90">{calculations.annualSavings >= 0 ? 'Annual Savings' : 'Annual Premium'}</div>
+                </div>
+                <div className="bg-gradient-to-br from-violet-500 to-purple-600 text-white p-6 rounded-xl">
+                  <div className="text-2xl font-bold mb-2">{formatCurrency(Math.abs(calculations.savingsPerUser))}</div>
+                  <div className="text-sm opacity-90">{calculations.savingsPerUser >= 0 ? 'Savings Per User' : 'Premium Per User'}</div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="breakdown-comparison">
-            <div className="breakdown-column">
-              <h4>Salesforce Breakdown</h4>
-              <div className="breakdown-category">
-                <h5>Software Licensing</h5>
-                <div className="breakdown-item">
-                  <span className="breakdown-label">License (Annual for {numUsers} users)</span>
-                  <span className="breakdown-value">{formatCurrency(calculations.annualLicenseCost)}</span>
+          <div className="grid lg:grid-cols-2 gap-8">
+            <div>
+              <h4 className="text-sm font-semibold text-slate-700 mb-4 text-center p-2 bg-slate-100 rounded-lg">Salesforce Breakdown</h4>
+              
+              <div className="space-y-6">
+                <div className="bg-slate-50 p-4 rounded-lg border-l-4 border-blue-500">
+                  <h5 className="text-xs font-semibold text-blue-600 mb-2 uppercase tracking-wider">Software Licensing</h5>
+                  <div className="flex justify-between items-center py-2 border-b border-slate-200">
+                    <span className="text-sm text-slate-600 font-medium">License (Annual for {numUsers} users)</span>
+                    <span className="text-sm font-bold text-slate-800">{formatCurrency(calculations.annualLicenseCost)}</span>
+                  </div>
                 </div>
-              </div>
 
-              <div className="breakdown-category">
-                <h5>Operations Labor</h5>
-                <div className="breakdown-item">
-                  <span className="breakdown-label">Total Labor Cost ({numUsers} users)</span>
-                  <span className="breakdown-value">{formatCurrency(calculations.annualLaborCost * numUsers)}</span>
+                <div className="bg-slate-50 p-4 rounded-lg border-l-4 border-emerald-500">
+                  <h5 className="text-xs font-semibold text-emerald-600 mb-2 uppercase tracking-wider">Operations Labor</h5>
+                  <div className="flex justify-between items-center py-2 border-b border-slate-200">
+                    <span className="text-sm text-slate-600 font-medium">Total Labor Cost ({numUsers} users)</span>
+                    <span className="text-sm font-bold text-slate-800">{formatCurrency(calculations.annualLaborCost * numUsers)}</span>
+                  </div>
                 </div>
-              </div>
 
-              <div className="breakdown-category">
-                <h5>IT Labor</h5>
-                <div className="breakdown-item">
-                  <span className="breakdown-label">Total IT Cost ({itFtes} FTEs)</span>
-                  <span className="breakdown-value">{formatCurrency(calculations.totalItCost)}</span>
+                <div className="bg-slate-50 p-4 rounded-lg border-l-4 border-amber-500">
+                  <h5 className="text-xs font-semibold text-amber-600 mb-2 uppercase tracking-wider">IT Labor</h5>
+                  <div className="flex justify-between items-center py-2 border-b border-slate-200">
+                    <span className="text-sm text-slate-600 font-medium">Total IT Cost ({itFtes} FTEs)</span>
+                    <span className="text-sm font-bold text-slate-800">{formatCurrency(calculations.totalItCost)}</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="breakdown-column">
-              <h4>8090 Software Breakdown</h4>
-              <div className="breakdown-category">
-                <h5>Software Cost</h5>
-                <div className="breakdown-item">
-                  <span className="breakdown-label">Annual License</span>
-                  <span className="breakdown-value">{formatCurrency(calculations.softwareCost8090)}</span>
+            <div>
+              <h4 className="text-sm font-semibold text-slate-700 mb-4 text-center p-2 bg-slate-100 rounded-lg">8090 Software Breakdown</h4>
+              
+              <div className="space-y-6">
+                <div className="bg-slate-50 p-4 rounded-lg border-l-4 border-blue-500">
+                  <h5 className="text-xs font-semibold text-blue-600 mb-2 uppercase tracking-wider">Software Cost</h5>
+                  <div className="flex justify-between items-center py-2 border-b border-slate-200">
+                    <span className="text-sm text-slate-600 font-medium">Annual License</span>
+                    <span className="text-sm font-bold text-slate-800">{formatCurrency(calculations.softwareCost8090)}</span>
+                  </div>
                 </div>
-              </div>
 
-              <div className="breakdown-category">
-                <h5>Reduced Operations Labor</h5>
-                <div className="breakdown-item">
-                  <span className="breakdown-label">Reduced Labor ({opsLaborReduction}% savings)</span>
-                  <span className="breakdown-value">{formatCurrency(calculations.reducedOpsLabor)}</span>
+                <div className="bg-slate-50 p-4 rounded-lg border-l-4 border-emerald-500">
+                  <h5 className="text-xs font-semibold text-emerald-600 mb-2 uppercase tracking-wider">Reduced Operations Labor</h5>
+                  <div className="flex justify-between items-center py-2 border-b border-slate-200">
+                    <span className="text-sm text-slate-600 font-medium">Reduced Labor ({opsLaborReduction}% savings)</span>
+                    <span className="text-sm font-bold text-slate-800">{formatCurrency(calculations.reducedOpsLabor)}</span>
+                  </div>
                 </div>
-              </div>
 
-              <div className="breakdown-category">
-                <h5>Reduced IT Labor</h5>
-                <div className="breakdown-item">
-                  <span className="breakdown-label">Reduced IT ({itLaborReduction}% savings)</span>
-                  <span className="breakdown-value">{formatCurrency(calculations.reducedItLabor)}</span>
+                <div className="bg-slate-50 p-4 rounded-lg border-l-4 border-amber-500">
+                  <h5 className="text-xs font-semibold text-amber-600 mb-2 uppercase tracking-wider">Reduced IT Labor</h5>
+                  <div className="flex justify-between items-center py-2 border-b border-slate-200">
+                    <span className="text-sm text-slate-600 font-medium">Reduced IT ({itLaborReduction}% savings)</span>
+                    <span className="text-sm font-bold text-slate-800">{formatCurrency(calculations.reducedItLabor)}</span>
+                  </div>
                 </div>
               </div>
             </div>
