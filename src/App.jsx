@@ -4,6 +4,7 @@ import HeaderContent from './components/HeaderContent'
 import HeaderTabs from './components/HeaderTabs'
 import CostSalesforce from './components/CostSalesforce'
 import Cost8090 from './components/Cost8090'
+import CompareSidebyside from './components/CompareSidebyside'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('8090')
@@ -37,11 +38,24 @@ export default function App() {
             itAnnualPerFTE={itAnnualPerFTE}
             setItAnnualPerFTE={setItAnnualPerFTE}
           />
-        ) : (
+        ) : activeTab === '8090' ? (
           <Cost8090 
             sfOpsLabor={sfOpsLabor}
             sfITLabor={sfITLabor}
             users={users}
+          />
+        ) : (
+          <CompareSidebyside 
+            users={users}
+            setUsers={setUsers}
+            opsAnnualPerFTE={opsAnnualPerFTE}
+            setOpsAnnualPerFTE={setOpsAnnualPerFTE}
+            itFTEs={itFTEs}
+            setItFTEs={setItFTEs}
+            itAnnualPerFTE={itAnnualPerFTE}
+            setItAnnualPerFTE={setItAnnualPerFTE}
+            sfOpsLabor={sfOpsLabor}
+            sfITLabor={sfITLabor}
           />
         )}
       </div>

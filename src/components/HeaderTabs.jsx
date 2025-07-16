@@ -31,6 +31,16 @@ export default function HeaderTabs({ onTabChange }) {
         >
           🔵 8090 Cost
         </button>
+        <button
+          onClick={() => handleTabClick('compare')}
+          className={`px-6 py-3 rounded-md font-semibold transition-all duration-200 ${
+            activeTab === 'compare'
+              ? 'bg-white text-black shadow-lg'
+              : 'text-gray-300 hover:text-white hover:bg-gray-700'
+          }`}
+        >
+          ↔️ Side by Side
+        </button>
       </div>
     </div>
   )
