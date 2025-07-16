@@ -64,68 +64,77 @@ export default function App() {
         <div className="inputs-section">
           <h2>Input Parameters</h2>
 
-          <div className="slider-group">
-            <label>SF License Cost: <span className="value">{formatCurrency(sfLicenseCost)}/month</span></label>
-            <input
-              type="range"
-              min="50"
-              max="500"
-              value={sfLicenseCost}
-              onChange={(e) => setSfLicenseCost(Number(e.target.value))}
-              className="slider"
-            />
+          <div className="input-category">
+            <h3>Software Licensing</h3>
+            <div className="slider-group">
+              <label>SF License Cost: <span className="value">{formatCurrency(sfLicenseCost)}/month</span></label>
+              <input
+                type="range"
+                min="50"
+                max="500"
+                value={sfLicenseCost}
+                onChange={(e) => setSfLicenseCost(Number(e.target.value))}
+                className="slider"
+              />
+            </div>
           </div>
 
-          <div className="slider-group">
-            <label>Annual Labor Cost: <span className="value">{formatCurrency(laborCost)}</span></label>
-            <input
-              type="range"
-              min="50000"
-              max="500000"
-              step="5000"
-              value={laborCost}
-              onChange={(e) => setLaborCost(Number(e.target.value))}
-              className="slider"
-            />
+          <div className="input-category">
+            <h3>Operations Labor</h3>
+            <div className="slider-group">
+              <label>Annual Labor Cost: <span className="value">{formatCurrency(laborCost)}</span></label>
+              <input
+                type="range"
+                min="50000"
+                max="500000"
+                step="5000"
+                value={laborCost}
+                onChange={(e) => setLaborCost(Number(e.target.value))}
+                className="slider"
+              />
+            </div>
+
+            <div className="slider-group">
+              <label>Number of Users: <span className="value">{numUsers}</span></label>
+              <input
+                type="range"
+                min="10"
+                max="1000"
+                step="10"
+                value={numUsers}
+                onChange={(e) => setNumUsers(Number(e.target.value))}
+                className="slider"
+              />
+            </div>
           </div>
 
-          <div className="slider-group">
-            <label>Number of Users: <span className="value">{numUsers}</span></label>
-            <input
-              type="range"
-              min="10"
-              max="1000"
-              step="10"
-              value={numUsers}
-              onChange={(e) => setNumUsers(Number(e.target.value))}
-              className="slider"
-            />
-          </div>
+          <div className="input-category">
+            <h3>IT Labor</h3>
+            <div className="slider-group">
+              <label>IT Config Hours: <span className="value">{itLaborHours}</span></label>
+              <input
+                type="range"
+                min="10"
+                max="200"
+                step="5"
+                value={itLaborHours}
+                onChange={(e) => setItLaborHours(Number(e.target.value))}
+                className="slider"
+              />
+            </div>
 
-          <div className="slider-group">
-            <label>IT Config Hours: <span className="value">{itLaborHours}</span></label>
-            <input
-              type="range"
-              min="10"
-              max="200"
-              step="5"
-              value={itLaborHours}
-              onChange={(e) => setItLaborHours(Number(e.target.value))}
-              className="slider"
-            />
-          </div>
-
-          <div className="slider-group">
-            <label>IT Hourly Rate: <span className="value">{formatCurrency(itHourlyRate)}/hr</span></label>
-            <input
-              type="range"
-              min="50"
-              max="200"
-              step="5"
-              value={itHourlyRate}
-              onChange={(e) => setItHourlyRate(Number(e.target.value))}
-              className="slider"
-            />
+            <div className="slider-group">
+              <label>IT Hourly Rate: <span className="value">{formatCurrency(itHourlyRate)}/hr</span></label>
+              <input
+                type="range"
+                min="50"
+                max="200"
+                step="5"
+                value={itHourlyRate}
+                onChange={(e) => setItHourlyRate(Number(e.target.value))}
+                className="slider"
+              />
+            </div>
           </div>
         </div>
 
@@ -141,26 +150,45 @@ export default function App() {
             </div>
           </div>
 
-          <div className="breakdown-grid">
-            <div className="breakdown-item">
-              <span className="breakdown-label">License (Annual)</span>
-              <span className="breakdown-value">{formatCurrency(calculations.annualLicenseCost)}</span>
+          <div className="breakdown-categories">
+            <div className="breakdown-category">
+              <h4>Software Licensing</h4>
+              <div className="breakdown-item">
+                <span className="breakdown-label">License (Annual)</span>
+                <span className="breakdown-value">{formatCurrency(calculations.annualLicenseCost)}</span>
+              </div>
             </div>
-            <div className="breakdown-item">
-              <span className="breakdown-label">Labor (Annual)</span>
-              <span className="breakdown-value">{formatCurrency(calculations.annualLaborCost)}</span>
+
+            <div className="breakdown-category">
+              <h4>Operations Labor</h4>
+              <div className="breakdown-item">
+                <span className="breakdown-label">Labor (Annual)</span>
+                <span className="breakdown-value">{formatCurrency(calculations.annualLaborCost)}</span>
+              </div>
+              <div className="breakdown-item">
+                <span className="breakdown-label">Cost/User/Year</span>
+                <span className="breakdown-value">{formatCurrency(calculations.laborCostPerUser)}</span>
+              </div>
             </div>
-            <div className="breakdown-item">
-              <span className="breakdown-label">IT Config</span>
-              <span className="breakdown-value">{formatCurrency(calculations.itConfigCost)}</span>
+
+            <div className="breakdown-category">
+              <h4>IT Labor</h4>
+              <div className="breakdown-item">
+                <span className="breakdown-label">IT Config Cost</span>
+                <span className="breakdown-value">{formatCurrency(calculations.itConfigCost)}</span>
+              </div>
             </div>
-            <div className="breakdown-item">
-              <span className="breakdown-label">Monthly Total</span>
-              <span className="breakdown-value">{formatCurrency(calculations.totalMonthlyCost)}</span>
-            </div>
-            <div className="breakdown-item">
-              <span className="breakdown-label">Cost/User/Month</span>
-              <span className="breakdown-value">{formatCurrency(calculations.costPerUserPerMonth)}</span>
+
+            <div className="breakdown-category totals">
+              <h4>Totals</h4>
+              <div className="breakdown-item">
+                <span className="breakdown-label">Monthly Total</span>
+                <span className="breakdown-value">{formatCurrency(calculations.totalMonthlyCost)}</span>
+              </div>
+              <div className="breakdown-item">
+                <span className="breakdown-label">Cost/User/Month</span>
+                <span className="breakdown-value">{formatCurrency(calculations.costPerUserPerMonth)}</span>
+              </div>
             </div>
           </div>
         </div>
