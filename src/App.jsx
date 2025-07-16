@@ -28,17 +28,18 @@ export default function App() {
     // Salesforce calculations
     const monthlyLicenseCost = sfLicenseCost
     const annualLicenseCost = monthlyLicenseCost * 12
-    const annualLaborCost = laborCost
-    const laborCostPerUser = annualLaborCost / numUsers
-    const totalMonthlyCost = monthlyLicenseCost + (annualLaborCost / 12) + (itAnnualCost / 12)
-    const totalAnnualCost = annualLicenseCost + annualLaborCost + itAnnualCost
+    const annualLaborCost = laborCost * numUsers  // Annual labor cost per user * number of users
+    const totalItCost = itAnnualCost * itFtes     // Annual IT cost per FTE * number of IT FTEs
+    const laborCostPerUser = laborCost
+    const totalMonthlyCost = monthlyLicenseCost + (annualLaborCost / 12) + (totalItCost / 12)
+    const totalAnnualCost = annualLicenseCost + annualLaborCost + totalItCost
     const costPerUserPerMonth = totalMonthlyCost / numUsers
     const costPerUserPerYear = totalAnnualCost / numUsers
 
     // 8090 Software calculations
     const softwareCost8090 = 500000
     const reducedOpsLabor = annualLaborCost * (1 - opsLaborReduction / 100)
-    const reducedItLabor = itAnnualCost * (1 - itLaborReduction / 100)
+    const reducedItLabor = totalItCost * (1 - itLaborReduction / 100)
     const total8090Cost = softwareCost8090 + reducedOpsLabor + reducedItLabor
     const cost8090PerUser = total8090Cost / numUsers
     const monthlyCost8090 = total8090Cost / 12
@@ -54,7 +55,7 @@ export default function App() {
       annualLicenseCost,
       annualLaborCost,
       laborCostPerUser,
-      itAnnualCost,
+      totalItCost,
       totalMonthlyCost,
       totalAnnualCost,
       costPerUserPerMonth,
@@ -258,7 +259,7 @@ export default function App() {
               <div className="breakdown-category">
                 <h5>Operations Labor</h5>
                 <div className="breakdown-item">
-                  <span className="breakdown-label">Labor (Annual)</span>
+                  <span className="breakdown-label">Total Labor Cost ({numUsers} users)</span>
                   <span className="breakdown-value">{formatCurrency(calculations.annualLaborCost)}</span>
                 </div>
               </div>
@@ -266,8 +267,8 @@ export default function App() {
               <div className="breakdown-category">
                 <h5>IT Labor</h5>
                 <div className="breakdown-item">
-                  <span className="breakdown-label">Annual IT Cost</span>
-                  <span className="breakdown-value">{formatCurrency(calculations.itAnnualCost)}</span>
+                  <span className="breakdown-label">Total IT Cost ({itFtes} FTEs)</span>
+                  <span className="breakdown-value">{formatCurrency(calculations.totalItCost)}</span>
                 </div>
               </div>
             </div>
