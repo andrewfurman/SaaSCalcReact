@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 
 export default function App() {
-  const [sfLicenseCost, setSfLicenseCost] = useState(100)
+  const [sfLicenseCost, setSfLicenseCost] = useState(150)
   const [laborCost, setLaborCost] = useState(100000)
   const [numUsers, setNumUsers] = useState(100)
   const [itAnnualCost, setItAnnualCost] = useState(150000)
@@ -102,8 +102,8 @@ export default function App() {
               <label>SF License Cost per User: <span className="value">{formatCurrency(sfLicenseCost)}/month</span></label>
               <input
                 type="range"
-                min="50"
-                max="500"
+                min="100"
+                max="800"
                 value={sfLicenseCost}
                 onChange={(e) => setSfLicenseCost(Number(e.target.value))}
                 className="slider"
