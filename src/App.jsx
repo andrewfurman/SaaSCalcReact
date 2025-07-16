@@ -8,6 +8,12 @@ export default function App() {
   const [itLaborHours, setItLaborHours] = useState(40)
   const [itHourlyRate, setItHourlyRate] = useState(75)
 
+  // 8090 Software comparison inputs
+  const [opsLaborReduction, setOpsLaborReduction] = useState(30) // percentage
+  const [itLaborReduction, setItLaborReduction] = useState(25) // percentage
+  const [itAnnualCost, setItAnnualCost] = useState(150000)
+  const [totalItFtes, setTotalItFtes] = useState(3)
+
   const [calculations, setCalculations] = useState({
     monthlyLicenseCost: 0,
     annualLicenseCost: 0,
@@ -21,6 +27,7 @@ export default function App() {
   })
 
   useEffect(() => {
+    // Salesforce calculations
     const monthlyLicenseCost = sfLicenseCost
     const annualLicenseCost = monthlyLicenseCost * 12
     const annualLaborCost = laborCost
@@ -31,6 +38,20 @@ export default function App() {
     const costPerUserPerMonth = totalMonthlyCost / numUsers
     const costPerUserPerYear = totalAnnualCost / numUsers
 
+    // 8090 Software calculations
+    const softwareCost8090 = 500000
+    const reducedOpsLabor = annualLaborCost * (1 - opsLaborReduction / 100)
+    const reducedItLabor = itAnnualCost * (1 - itLaborReduction / 100)
+    const total8090Cost = softwareCost8090 + reducedOpsLabor + reducedItLabor
+    const cost8090PerUser = total8090Cost / numUsers
+    const monthlyCost8090 = total8090Cost / 12
+    const monthlyCost8090PerUser = monthlyCost8090 / numUsers
+
+    // Savings comparison
+    const annualSavings = totalAnnualCost - total8090Cost
+    const monthlySavings = totalMonthlyCost - monthlyCost8090
+    const savingsPerUser = costPerUserPerYear - cost8090PerUser
+
     setCalculations({
       monthlyLicenseCost,
       annualLicenseCost,
@@ -40,9 +61,20 @@ export default function App() {
       totalMonthlyCost,
       totalAnnualCost,
       costPerUserPerMonth,
-      costPerUserPerYear
+      costPerUserPerYear,
+      // 8090 calculations
+      softwareCost8090,
+      reducedOpsLabor,
+      reducedItLabor,
+      total8090Cost,
+      cost8090PerUser,
+      monthlyCost8090,
+      monthlyCost8090PerUser,
+      annualSavings,
+      monthlySavings,
+      savingsPerUser
     })
-  }, [sfLicenseCost, laborCost, numUsers, itLaborHours, itHourlyRate])
+  }, [sfLicenseCost, laborCost, numUsers, itLaborHours, itHourlyRate, opsLaborReduction, itLaborReduction, itAnnualCost, totalItFtes])
 
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('en-US', {
@@ -136,58 +168,161 @@ export default function App() {
               />
             </div>
           </div>
+
+          <div className="comparison-section">
+            <h3>8090 Software Comparison</h3>
+            
+            <div className="slider-group">
+              <label>Ops Labor Reduction: <span className="value">{opsLaborReduction}%</span></label>
+              <input
+                type="range"
+                min="0"
+                max="80"
+                step="5"
+                value={opsLaborReduction}
+                onChange={(e) => setOpsLaborReduction(Number(e.target.value))}
+                className="slider"
+              />
+            </div>
+
+            <div className="slider-group">
+              <label>IT Labor Reduction: <span className="value">{itLaborReduction}%</span></label>
+              <input
+                type="range"
+                min="0"
+                max="70"
+                step="5"
+                value={itLaborReduction}
+                onChange={(e) => setItLaborReduction(Number(e.target.value))}
+                className="slider"
+              />
+            </div>
+
+            <div className="slider-group">
+              <label>IT Annual Cost: <span className="value">{formatCurrency(itAnnualCost)}</span></label>
+              <input
+                type="range"
+                min="100000"
+                max="500000"
+                step="10000"
+                value={itAnnualCost}
+                onChange={(e) => setItAnnualCost(Number(e.target.value))}
+                className="slider"
+              />
+            </div>
+
+            <div className="slider-group">
+              <label>Total IT FTEs: <span className="value">{totalItFtes}</span></label>
+              <input
+                type="range"
+                min="1"
+                max="20"
+                step="1"
+                value={totalItFtes}
+                onChange={(e) => setTotalItFtes(Number(e.target.value))}
+                className="slider"
+              />
+            </div>
+          </div>
         </div>
 
         <div className="results-section">
-          <div className="cost-summary">
-            <div className="total-cost">
-              <div className="cost-value">{formatCurrency(calculations.totalAnnualCost)}</div>
-              <div className="cost-label">Total Annual Cost</div>
+          <div className="comparison-grid">
+            <div className="salesforce-summary">
+              <h3>Salesforce</h3>
+              <div className="cost-summary">
+                <div className="total-cost sf">
+                  <div className="cost-value">{formatCurrency(calculations.totalAnnualCost)}</div>
+                  <div className="cost-label">Total Annual Cost</div>
+                </div>
+                <div className="per-user-cost sf">
+                  <div className="cost-value">{formatCurrency(calculations.costPerUserPerYear)}</div>
+                  <div className="cost-label">Cost Per User/Year</div>
+                </div>
+              </div>
             </div>
-            <div className="per-user-cost">
-              <div className="cost-value">{formatCurrency(calculations.costPerUserPerYear)}</div>
-              <div className="cost-label">Cost Per User/Year</div>
+
+            <div className="software-8090-summary">
+              <h3>8090 Software</h3>
+              <div className="cost-summary">
+                <div className="total-cost alt">
+                  <div className="cost-value">{formatCurrency(calculations.total8090Cost)}</div>
+                  <div className="cost-label">Total Annual Cost</div>
+                </div>
+                <div className="per-user-cost alt">
+                  <div className="cost-value">{formatCurrency(calculations.cost8090PerUser)}</div>
+                  <div className="cost-label">Cost Per User/Year</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="savings-summary">
+              <h3>Potential Savings</h3>
+              <div className="cost-summary">
+                <div className="total-cost savings">
+                  <div className="cost-value">{formatCurrency(Math.abs(calculations.annualSavings))}</div>
+                  <div className="cost-label">{calculations.annualSavings >= 0 ? 'Annual Savings' : 'Annual Premium'}</div>
+                </div>
+                <div className="per-user-cost savings">
+                  <div className="cost-value">{formatCurrency(Math.abs(calculations.savingsPerUser))}</div>
+                  <div className="cost-label">{calculations.savingsPerUser >= 0 ? 'Savings Per User' : 'Premium Per User'}</div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="breakdown-categories">
-            <div className="breakdown-category">
-              <h4>Software Licensing</h4>
-              <div className="breakdown-item">
-                <span className="breakdown-label">License (Annual)</span>
-                <span className="breakdown-value">{formatCurrency(calculations.annualLicenseCost)}</span>
+          <div className="breakdown-comparison">
+            <div className="breakdown-column">
+              <h4>Salesforce Breakdown</h4>
+              <div className="breakdown-category">
+                <h5>Software Licensing</h5>
+                <div className="breakdown-item">
+                  <span className="breakdown-label">License (Annual)</span>
+                  <span className="breakdown-value">{formatCurrency(calculations.annualLicenseCost)}</span>
+                </div>
+              </div>
+
+              <div className="breakdown-category">
+                <h5>Operations Labor</h5>
+                <div className="breakdown-item">
+                  <span className="breakdown-label">Labor (Annual)</span>
+                  <span className="breakdown-value">{formatCurrency(calculations.annualLaborCost)}</span>
+                </div>
+              </div>
+
+              <div className="breakdown-category">
+                <h5>IT Labor</h5>
+                <div className="breakdown-item">
+                  <span className="breakdown-label">IT Config Cost</span>
+                  <span className="breakdown-value">{formatCurrency(calculations.itConfigCost)}</span>
+                </div>
               </div>
             </div>
 
-            <div className="breakdown-category">
-              <h4>Operations Labor</h4>
-              <div className="breakdown-item">
-                <span className="breakdown-label">Labor (Annual)</span>
-                <span className="breakdown-value">{formatCurrency(calculations.annualLaborCost)}</span>
+            <div className="breakdown-column">
+              <h4>8090 Software Breakdown</h4>
+              <div className="breakdown-category">
+                <h5>Software Cost</h5>
+                <div className="breakdown-item">
+                  <span className="breakdown-label">Annual License</span>
+                  <span className="breakdown-value">{formatCurrency(calculations.softwareCost8090)}</span>
+                </div>
               </div>
-              <div className="breakdown-item">
-                <span className="breakdown-label">Cost/User/Year</span>
-                <span className="breakdown-value">{formatCurrency(calculations.laborCostPerUser)}</span>
-              </div>
-            </div>
 
-            <div className="breakdown-category">
-              <h4>IT Labor</h4>
-              <div className="breakdown-item">
-                <span className="breakdown-label">IT Config Cost</span>
-                <span className="breakdown-value">{formatCurrency(calculations.itConfigCost)}</span>
+              <div className="breakdown-category">
+                <h5>Reduced Operations Labor</h5>
+                <div className="breakdown-item">
+                  <span className="breakdown-label">Reduced Labor ({opsLaborReduction}% savings)</span>
+                  <span className="breakdown-value">{formatCurrency(calculations.reducedOpsLabor)}</span>
+                </div>
               </div>
-            </div>
 
-            <div className="breakdown-category totals">
-              <h4>Totals</h4>
-              <div className="breakdown-item">
-                <span className="breakdown-label">Monthly Total</span>
-                <span className="breakdown-value">{formatCurrency(calculations.totalMonthlyCost)}</span>
-              </div>
-              <div className="breakdown-item">
-                <span className="breakdown-label">Cost/User/Month</span>
-                <span className="breakdown-value">{formatCurrency(calculations.costPerUserPerMonth)}</span>
+              <div className="breakdown-category">
+                <h5>Reduced IT Labor</h5>
+                <div className="breakdown-item">
+                  <span className="breakdown-label">Reduced IT ({itLaborReduction}% savings)</span>
+                  <span className="breakdown-value">{formatCurrency(calculations.reducedItLabor)}</span>
+                </div>
               </div>
             </div>
           </div>

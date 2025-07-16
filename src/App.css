@@ -122,11 +122,26 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.salesforce-summary h3,
+.software-8090-summary h3,
+.savings-summary h3 {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #374151;
+}
+
 .cost-summary {
   display: grid;
-  grid-template-columns: 1fr 1fr;
   gap: 1rem;
-  margin-bottom: 2rem;
 }
 
 .total-cost,
@@ -136,13 +151,33 @@ body {
   border-radius: 10px;
 }
 
-.total-cost {
+.total-cost.sf {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
 }
 
-.per-user-cost {
+.per-user-cost.sf {
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.total-cost.alt {
+  background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+  color: white;
+}
+
+.per-user-cost.alt {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+  color: white;
+}
+
+.total-cost.savings {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+}
+
+.per-user-cost.savings {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
   color: white;
 }
 
@@ -177,6 +212,49 @@ body {
   background: #f3f4f6;
   border-radius: 6px;
   border-left: 3px solid #3b82f6;
+}
+
+.comparison-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #e2e8f0;
+}
+
+.comparison-section h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.75rem;
+  background: #fef3c7;
+  border-radius: 6px;
+  border-left: 3px solid #f59e0b;
+}
+
+.breakdown-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.breakdown-column h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 1rem;
+  text-align: center;
+  padding: 0.5rem;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+.breakdown-column h5 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .breakdown-categories {
@@ -276,8 +354,14 @@ body {
     font-size: 1.75rem;
   }
   
-  .cost-summary {
+  .comparison-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .breakdown-comparison {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
   
   .cost-value {
