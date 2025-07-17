@@ -192,9 +192,9 @@ export default function CostCompare({
             <div className="text-sm text-gray-400 mb-2">
               License + Ops Labor + IT Labor
             </div>
-            <div className="bg-gray-100 p-3 rounded-lg border border-gray-300">
+            <div className="p-3 rounded-lg border border-blue-300" style={{backgroundColor: '#00A1E0'}}>
               <div className="text-2xl font-bold text-black text-center">{formatCurrency(sfTotalAnnual)}</div>
-              <div className="text-xs text-gray-600 text-center">total annual</div>
+              <div className="text-xs text-gray-800 text-center">total annual</div>
             </div>
           </div>
           <div className="text-center">
