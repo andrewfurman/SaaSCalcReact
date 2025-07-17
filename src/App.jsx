@@ -33,7 +33,7 @@ export default function App() {
       <div className="max-w-7xl mx-auto">
         <HeaderContent />
         
-        <HeaderTabs onTabChange={handleTabChange} />
+        <HeaderTabs activeTab={activeTab} onTabChange={handleTabChange} />
         
         {activeTab === 'salesforce' ? (
           <CostSalesforce 

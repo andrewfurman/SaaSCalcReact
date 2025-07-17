@@ -1,10 +1,5 @@
-import { useState } from 'react'
-
-export default function HeaderTabs({ onTabChange }) {
-  const [activeTab, setActiveTab] = useState('compare')
-
+export default function HeaderTabs({ activeTab, onTabChange }) {
   const handleTabClick = (tab) => {
-    setActiveTab(tab)
     onTabChange(tab)
   }
 
