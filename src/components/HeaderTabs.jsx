@@ -7,6 +7,16 @@ export default function HeaderTabs({ activeTab, onTabChange }) {
     <div className="flex justify-center mb-8">
       <div className="bg-gray-800 rounded-lg p-1 flex space-x-1">
         <button
+          onClick={() => handleTabClick('introduction')}
+          className={`px-6 py-3 rounded-md font-semibold transition-all duration-200 ${
+            activeTab === 'introduction'
+              ? 'bg-white text-black shadow-lg'
+              : 'text-gray-300 hover:text-white hover:bg-gray-700'
+          }`}
+        >
+          📖 Introduction
+        </button>
+        <button
           onClick={() => handleTabClick('salesforce')}
           className={`px-6 py-3 rounded-md font-semibold transition-all duration-200 ${
             activeTab === 'salesforce'

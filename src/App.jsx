@@ -2,12 +2,13 @@ import { useState } from 'react'
 import './App.css'
 import HeaderContent from './components/HeaderContent'
 import HeaderTabs from './components/HeaderTabs'
+import Introduction from './components/Introduction'
 import CostSalesforce from './components/CostSalesforce'
 import Cost8090 from './components/Cost8090'
 import CostSidebyside from './components/CostSidebyside'
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('salesforce')
+  const [activeTab, setActiveTab] = useState('introduction')
   const [users, setUsers] = useState(200)
   const [opsAnnualPerFTE, setOpsAnnualPerFTE] = useState(80000)
   const [itFTEs, setItFTEs] = useState(20)
@@ -35,7 +36,9 @@ export default function App() {
         
         <HeaderTabs activeTab={activeTab} onTabChange={handleTabChange} />
         
-        {activeTab === 'salesforce' ? (
+        {activeTab === 'introduction' ? (
+          <Introduction />
+        ) : activeTab === 'salesforce' ? (
           <CostSalesforce 
             users={users}
             setUsers={setUsers}
