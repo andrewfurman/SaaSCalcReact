@@ -5,7 +5,7 @@ import HeaderTabs from './components/HeaderTabs'
 import Introduction from './components/Introduction'
 import CostSalesforce from './components/CostSalesforce'
 import Cost8090 from './components/Cost8090'
-import CostSidebyside from './components/CostSidebyside'
+import CostCompare from './components/CostCompare'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('introduction')
@@ -64,7 +64,7 @@ export default function App() {
             setItReductionRate={setItReductionRate}
           />
         ) : (
-          <CostSidebyside 
+          <CostCompare 
             users={users}
             opsAnnualPerFTE={opsAnnualPerFTE}
             itFTEs={itFTEs}

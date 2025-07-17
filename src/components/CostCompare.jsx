@@ -1,5 +1,4 @@
-
-export default function CostSidebyside({ 
+export default function CostCompare({ 
   users, 
   opsAnnualPerFTE, 
   itFTEs, 
