@@ -35,7 +35,7 @@ export default function Introduction() {
           </p>
         </div>
         
-        <div className="relative">
+        <div className="relative w-3/4 mx-auto">
           <img 
             src="/Salesforce_Screenshot.png" 
             alt="Salesforce Dashboard Screenshot" 
@@ -45,7 +45,7 @@ export default function Introduction() {
             <img 
               src="/Salesforce_Loading_GIF.gif" 
               alt="Salesforce Loading" 
-              className="w-32 h-32"
+              className="w-40 h-40"
             />
           </div>
         </div>
